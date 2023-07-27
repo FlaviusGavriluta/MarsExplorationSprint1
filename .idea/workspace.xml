@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="786ea28b-390d-4ed4-8b58-b040be4f7c77" name="Changes" comment="start a new project">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/codecool/marsexploration/calculators/service/DimensionCalculatorImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codecool/marsexploration/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/marsexploration/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/codecool/marsexploration/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/codecool/marsexploration/Application.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,8 +17,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -69,7 +70,20 @@
       <recent name="com.codecool.test.configuration.service" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.MapConfigurationValidatorImplTest">
+  <component name="RunManager" selected="Application.Application">
+    <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.codecool.marsexploration.Application" />
+      <module name="mars-exploration" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.codecool.marsexploration.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="MapConfigurationValidatorImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="mars-exploration" />
       <extension name="coverage">
@@ -132,6 +146,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Application" />
         <item itemvalue="JUnit.MapConfigurationValidatorImplTest" />
         <item itemvalue="JUnit.MapConfigurationValidatorImplTest.testValidMapConfiguration" />
         <item itemvalue="JUnit.MapConfigurationValidatorImplTest.testInvalidMapConfigurationExceedingElementToSpaceRatio" />
