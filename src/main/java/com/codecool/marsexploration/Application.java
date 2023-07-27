@@ -42,6 +42,7 @@ public class Application {
         final String mineralSymbol = "%";
         final String waterSymbol = "*";
 
+        // Mountain configuration
         MapElementConfiguration mountainsCfg = new MapElementConfiguration(
                 mountainSymbol,
                 "mountain",
@@ -52,6 +53,41 @@ public class Application {
                 3,
                 ""
         );
+
+        // Pit configuration
+        MapElementConfiguration pitsCfg = new MapElementConfiguration(
+                pitSymbol,
+                "pit",
+                List.of(
+                        new ElementToSize(2, 10),
+                        new ElementToSize(1, 20)
+                ),
+                10,
+                ""
+        );
+
+        // Mineral configuration
+        MapElementConfiguration mineralsCfg = new MapElementConfiguration(
+                mineralSymbol,
+                "mineral",
+                List.of(
+                        new ElementToSize(10, 1)
+                ),
+                0,
+                mountainSymbol
+        );
+
+        // Water configuration
+        MapElementConfiguration waterCfg = new MapElementConfiguration(
+                waterSymbol,
+                "water",
+                List.of(
+                        new ElementToSize(10, 1)
+                ),
+                0,
+                pitSymbol
+        );
+
 
         List<MapElementConfiguration> elementsCfg = List.of(mountainsCfg);
         return new MapConfiguration(1000, 0.5, elementsCfg);
