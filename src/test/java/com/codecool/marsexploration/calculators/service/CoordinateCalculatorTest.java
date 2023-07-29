@@ -1,8 +1,6 @@
 package com.codecool.marsexploration.calculators.service;
 
 import com.codecool.marsexploration.calculators.model.Coordinate;
-import com.codecool.marsexploration.calculators.service.CoordinateCalculator;
-import com.codecool.marsexploration.calculators.service.CoordinateCalculatorImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
