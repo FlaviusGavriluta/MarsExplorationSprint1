@@ -3,6 +3,8 @@ package com.codecool.marsexploration.mapelements.service.builder;
 import com.codecool.marsexploration.calculators.service.DimensionCalculatorImpl;
 import com.codecool.marsexploration.mapelements.model.MapElement;
 
+import java.util.Arrays;
+
 public class MapElementBuilderImpl implements MapElementBuilder{
     @Override
     public MapElement build(int size, String symbol, String name, int dimensionGrowth, String preferredLocationSymbol) {
@@ -14,9 +16,9 @@ public class MapElementBuilderImpl implements MapElementBuilder{
     }
 
     private String[][] representation(String symbol, int dimension) {
-        String[][] representation = new String[dimension][dimension];
-        for (int i = 0; i <= dimension; i++) {
-            for (int j = 0; j <= dimension; j++) {
+        String[][] representation = new String[dimension + 1][dimension + 1];
+        for (int i = 1; i <= dimension; i++) {
+            for (int j = 1; j <= dimension; j++) {
                 representation[i][j] = symbol;
             }
         }
