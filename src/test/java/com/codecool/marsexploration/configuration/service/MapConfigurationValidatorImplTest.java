@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MapConfigurationValidatorImplTest {
+
     private MapConfigurationValidatorImpl validator;
 
     @BeforeEach
@@ -26,47 +27,29 @@ public class MapConfigurationValidatorImplTest {
         final String mineralSymbol = "%";
         final String waterSymbol = "*";
 
-        MapElementConfiguration mountainsCfg = new MapElementConfiguration(
-                mountainSymbol,
+        MapElementConfiguration mountainsCfg = createMapElementConfiguration(mountainSymbol,
                 "mountain",
-                List.of(
-                        new ElementToSize(2, 20),
-                        new ElementToSize(1, 30)
-                ),
+                List.of(new ElementToSize(2, 20), new ElementToSize(1, 30)),
                 3,
-                ""
-        );
+                "");
 
-        MapElementConfiguration pitsCfg = new MapElementConfiguration(
-                pitSymbol,
+        MapElementConfiguration pitsCfg = createMapElementConfiguration(pitSymbol,
                 "pit",
-                List.of(
-                        new ElementToSize(2, 10),
-                        new ElementToSize(1, 20)
-                ),
+                List.of(new ElementToSize(2, 10), new ElementToSize(1, 20)),
                 10,
-                ""
-        );
+                "");
 
-        MapElementConfiguration mineralsCfg = new MapElementConfiguration(
-                mineralSymbol,
+        MapElementConfiguration mineralsCfg = createMapElementConfiguration(mineralSymbol,
                 "mineral",
-                List.of(
-                        new ElementToSize(10, 1)
-                ),
+                List.of(new ElementToSize(10, 1)),
                 0,
-                mountainSymbol
-        );
+                mountainSymbol);
 
-        MapElementConfiguration watersCfg = new MapElementConfiguration(
-                waterSymbol,
+        MapElementConfiguration watersCfg = createMapElementConfiguration(waterSymbol,
                 "water",
-                List.of(
-                        new ElementToSize(10, 1)
-                ),
+                List.of(new ElementToSize(10, 1)),
                 0,
-                pitSymbol
-        );
+                pitSymbol);
 
         List<MapElementConfiguration> elementsCfg = List.of(mountainsCfg, pitsCfg, mineralsCfg, watersCfg);
 
@@ -81,51 +64,41 @@ public class MapConfigurationValidatorImplTest {
         final String mineralSymbol = "%";
         final String waterSymbol = "*";
 
-        MapElementConfiguration mountainsCfg = new MapElementConfiguration(
-                mountainSymbol,
+        MapElementConfiguration mountainsCfg = createMapElementConfiguration(mountainSymbol,
                 "mountain",
-                List.of(
-                        new ElementToSize(2, 20),
-                        new ElementToSize(1, 30)
-                ),
+                List.of(new ElementToSize(2, 20), new ElementToSize(1, 30)),
                 5,
-                ""
-        );
+                "");
 
-        MapElementConfiguration pitsCfg = new MapElementConfiguration(
-                pitSymbol,
+        MapElementConfiguration pitsCfg = createMapElementConfiguration(pitSymbol,
                 "pit",
-                List.of(
-                        new ElementToSize(2, 10),
-                        new ElementToSize(1, 20)
-                ),
+                List.of(new ElementToSize(2, 10), new ElementToSize(1, 20)),
                 10,
-                ""
-        );
+                "");
 
-        MapElementConfiguration mineralsCfg = new MapElementConfiguration(
-                mineralSymbol,
+        MapElementConfiguration mineralsCfg = createMapElementConfiguration(mineralSymbol,
                 "mineral",
-                List.of(
-                        new ElementToSize(10, 1)
-                ),
+                List.of(new ElementToSize(10, 1)),
                 0,
-                mountainSymbol
-        );
+                mountainSymbol);
 
-        MapElementConfiguration watersCfg = new MapElementConfiguration(
-                waterSymbol,
+        MapElementConfiguration watersCfg = createMapElementConfiguration(waterSymbol,
                 "water",
-                List.of(
-                        new ElementToSize(10, 1)
-                ),
+                List.of(new ElementToSize(10, 1)),
                 0,
-                pitSymbol
-        );
+                pitSymbol);
 
         List<MapElementConfiguration> elementsCfg = List.of(mountainsCfg, pitsCfg, mineralsCfg, watersCfg);
 
         MapConfiguration mapConfig = new MapConfiguration(1000, 0.5, elementsCfg);
         assertFalse(validator.validate(mapConfig));
+    }
+
+    private static MapElementConfiguration createMapElementConfiguration(String symbol,
+                                                                         String name,
+                                                                         List<ElementToSize> elementToSizes,
+                                                                         int dimensionGrowth,
+                                                                         String preferredLocationSymbol) {
+        return new MapElementConfiguration(symbol, name, elementToSizes, dimensionGrowth, preferredLocationSymbol);
     }
 }
