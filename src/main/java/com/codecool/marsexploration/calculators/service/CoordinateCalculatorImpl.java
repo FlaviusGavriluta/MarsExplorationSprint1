@@ -2,9 +2,7 @@ package com.codecool.marsexploration.calculators.service;
 
 import com.codecool.marsexploration.calculators.model.Coordinate;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class CoordinateCalculatorImpl implements CoordinateCalculator{
     private final Random random = new Random();
@@ -42,7 +40,7 @@ public class CoordinateCalculatorImpl implements CoordinateCalculator{
 
     @Override
     public Iterable<Coordinate> getAdjacentCoordinates(Iterable<Coordinate> coordinates, int dimension) {
-        List<Coordinate> allAdjacentCoordinates = new ArrayList<>();
+        Set<Coordinate> allAdjacentCoordinates = new HashSet<>();
         for (Coordinate coordinate : coordinates) {
             Iterable<Coordinate> adjacentCoordinates = getAdjacentCoordinates(coordinate, dimension);
             allAdjacentCoordinates.addAll((List<Coordinate>) adjacentCoordinates);
