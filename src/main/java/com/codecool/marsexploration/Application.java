@@ -23,7 +23,8 @@ public class Application {
         MapElementBuilder mapElementFactory = null;
         MapElementsGenerator mapElementsGenerator = null;
 
-        MapConfigurationValidator mapConfigValidator = null;
+        MapConfigurationValidator mapConfigValidator = new MapConfigurationValidatorImpl();
+        mapConfigValidator.validate(mapConfig);
         MapElementPlacer mapElementPlacer = null;
 
         MapGenerator mapGenerator = null;
