@@ -19,7 +19,14 @@ public class MapElementPlacerImpl implements MapElementPlacer {
 
         for (int i = 0; i < elementWidth; i++) {
             for (int j = 0; j < elementHeight; j++) {
-                if (!map[startX + i][startY + j].isEmpty() && !element.getRepresentation()[i][j].isEmpty()) {
+                int mapX = startX + i;
+                int mapY = startY + j;
+
+                if (mapX < 0 || mapX >= map.length || mapY < 0 || mapY >= map[0].length) {
+                    return false;
+                }
+
+                if (!map[mapX][mapY].isEmpty() && !element.getRepresentation()[i][j].isEmpty()) {
                     return false;
                 }
             }

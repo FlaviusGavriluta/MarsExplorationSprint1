@@ -12,6 +12,7 @@ public class MapElement extends Map {
 
     public MapElement(String[][] representation, String name, int dimension, String preferredLocationSymbol) {
         super(representation);
+        this.representation = representation;
         this.name = name;
         this.dimension = dimension;
         this.preferredLocationSymbol = preferredLocationSymbol;
