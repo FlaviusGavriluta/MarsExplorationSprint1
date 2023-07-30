@@ -33,5 +33,9 @@ public class MapElement extends Map {
     public String getPreferredLocationSymbol() {
         return preferredLocationSymbol;
     }
+
+    public String[][] getRepresentation() {
+        return representation;
+    }
 }
 
