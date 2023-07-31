@@ -93,4 +93,3 @@ public class Application {
         return new MapConfiguration(1000, 0.5, elementsCfg);
     }
 }
-

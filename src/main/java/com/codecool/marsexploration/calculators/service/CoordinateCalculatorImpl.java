@@ -3,14 +3,14 @@ package com.codecool.marsexploration.calculators.service;
 import com.codecool.marsexploration.calculators.model.Coordinate;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
 public class CoordinateCalculatorImpl implements CoordinateCalculator {
+    private final Random random = new Random();
+
     @Override
     public Coordinate getRandomCoordinate(int dimension) {
-        Random random = new Random();
         int x = random.nextInt(dimension);
         int y = random.nextInt(dimension);
         return new Coordinate(x, y);
@@ -20,15 +20,24 @@ public class CoordinateCalculatorImpl implements CoordinateCalculator {
     public Iterable<Coordinate> getAdjacentCoordinates(Coordinate coordinate, int dimension) {
         List<Coordinate> adjacentCoordinates = new ArrayList<>();
 
-        for (int xOffset = -1; xOffset <= 1; xOffset++) {
-            for (int yOffset = -1; yOffset <= 1; yOffset++) {
-                int adjX = coordinate.x() + xOffset;
-                int adjY = coordinate.y() + yOffset;
+        int x = coordinate.getX();
+        int y = coordinate.getY();
 
-                if (adjX >= 0 && adjX < dimension && adjY >= 0 && adjY < dimension) {
-                    adjacentCoordinates.add(new Coordinate(adjX, adjY));
-                }
-            }
+        // Top
+        if (x - 1 >= 0) {
+            adjacentCoordinates.add(new Coordinate(x - 1, y));
+        }
+        // Bottom
+        if (x + 1 < dimension) {
+            adjacentCoordinates.add(new Coordinate(x + 1, y));
+        }
+        // Left
+        if (y - 1 >= 0) {
+            adjacentCoordinates.add(new Coordinate(x, y - 1));
+        }
+        // Right
+        if (y + 1 < dimension) {
+            adjacentCoordinates.add(new Coordinate(x, y + 1));
         }
 
         return adjacentCoordinates;
@@ -36,12 +45,11 @@ public class CoordinateCalculatorImpl implements CoordinateCalculator {
 
     @Override
     public Iterable<Coordinate> getAdjacentCoordinates(Iterable<Coordinate> coordinates, int dimension) {
-        List<Coordinate> adjacentCoordinates = new ArrayList<>();
-
+        List<Coordinate> allAdjacentCoordinates = new ArrayList<>();
         for (Coordinate coordinate : coordinates) {
-            adjacentCoordinates.addAll((Collection<? extends Coordinate>) getAdjacentCoordinates(coordinate, dimension));
+            Iterable<Coordinate> adjacentCoordinates = getAdjacentCoordinates(coordinate, dimension);
+            allAdjacentCoordinates.addAll((List<Coordinate>) adjacentCoordinates);
         }
-
-        return adjacentCoordinates;
+        return allAdjacentCoordinates;
     }
 }
