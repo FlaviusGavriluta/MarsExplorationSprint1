@@ -33,5 +33,9 @@ public class Map {
     public String toString() {
         return createStringRepresentation(representation);
     }
+
+    public String[][] getRepresentation() {
+        return representation;
+    }
 }
 

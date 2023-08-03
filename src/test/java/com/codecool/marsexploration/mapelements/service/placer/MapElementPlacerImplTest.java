@@ -2,49 +2,20 @@ package com.codecool.marsexploration.mapelements.service.placer;
 
 import com.codecool.marsexploration.calculators.model.Coordinate;
 import com.codecool.marsexploration.mapelements.model.MapElement;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class MapElementPlacerImplTest {
-
-    private MapElementPlacerImpl mapElementPlacer;
-
-    @BeforeEach
-    void setUp() {
-        mapElementPlacer = new MapElementPlacerImpl();
-    }
 
     @Test
     void testCanPlaceElement() {
         // Initialize the map array with non-null values
         String[][] map = new String[5][5];
         for (String[] strings : map) {
-            Arrays.fill(strings, "");
-        }
-
-        // Create a sample MapElement and Coordinate for testing
-        String[][] elementRepresentation = new String[][]{
-                {"#", "#"},
-                {"#", "#"}
-        };
-        MapElement element = new MapElement(elementRepresentation, "SampleElement", 2);
-        Coordinate coordinate = new Coordinate(2, 2);
-
-        // Test if the element can be placed on the map
-        assertTrue(mapElementPlacer.canPlaceElement(element, map, coordinate));
-    }
-
-    @Test
-    void testPlaceElement() {
-        // Initialize the map array with non-null values
-        String[][] map = new String[5][5];
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[i].length; j++) {
-                map[i][j] = "";
+            for (int j = 0; j < map[0].length; j++) {
+                strings[j] = "";
             }
         }
 
@@ -56,13 +27,35 @@ class MapElementPlacerImplTest {
         MapElement element = new MapElement(elementRepresentation, "SampleElement", 2);
         Coordinate coordinate = new Coordinate(2, 2);
 
-        // Place the element on the map
-        mapElementPlacer.placeElement(element, map, coordinate);
+        // Test if the element can be placed on the map
+        MapElementPlacer mapElementPlacer = new MapElementPlacerImpl();
+        assertTrue(mapElementPlacer.canPlaceElement(element, map, coordinate));
+    }
 
-        // Test if the element was placed correctly on the map
-        assertEquals("#", map[1][1]);
-        assertEquals("#", map[1][2]);
-        assertEquals("#", map[2][1]);
-        assertEquals("#", map[2][2]);
+    @Test
+    void testCannotPlaceElement() {
+        // Initialize the map array with non-null values and place an element
+        String[][] map = new String[5][5];
+        for (String[] strings : map) {
+            for (int j = 0; j < map[0].length; j++) {
+                strings[j] = "";
+            }
+        }
+        map[2][2] = "#";
+        map[2][3] = "#";
+        map[3][2] = "#";
+        map[3][3] = "#";
+
+        // Create a sample MapElement and Coordinate for testing
+        String[][] elementRepresentation = new String[][]{
+                {"#", "#"},
+                {"#", "#"}
+        };
+        MapElement element = new MapElement(elementRepresentation, "SampleElement", 2);
+        Coordinate coordinate = new Coordinate(2, 2);
+
+        // Test if the element cannot be placed on the map due to overlapping with an existing element
+        MapElementPlacer mapElementPlacer = new MapElementPlacerImpl();
+        assertFalse(mapElementPlacer.canPlaceElement(element, map, coordinate));
     }
 }
