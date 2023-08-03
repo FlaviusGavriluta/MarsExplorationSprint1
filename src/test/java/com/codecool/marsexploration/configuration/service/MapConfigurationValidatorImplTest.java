@@ -94,6 +94,80 @@ public class MapConfigurationValidatorImplTest {
         assertFalse(validator.validate(mapConfig));
     }
 
+    @Test
+    void testValidElementToSpaceRatio() {
+        final String mountainSymbol = "#";
+        final String pitSymbol = "&";
+        final String mineralSymbol = "%";
+        final String waterSymbol = "*";
+
+        MapElementConfiguration mountainsCfg = createMapElementConfiguration(mountainSymbol,
+                "mountain",
+                List.of(new ElementToSize(2, 20), new ElementToSize(1, 30)),
+                3,
+                "");
+
+        MapElementConfiguration pitsCfg = createMapElementConfiguration(pitSymbol,
+                "pit",
+                List.of(new ElementToSize(2, 10), new ElementToSize(1, 20)),
+                10,
+                "");
+
+        MapElementConfiguration mineralsCfg = createMapElementConfiguration(mineralSymbol,
+                "mineral",
+                List.of(new ElementToSize(10, 1)),
+                0,
+                mountainSymbol);
+
+        MapElementConfiguration watersCfg = createMapElementConfiguration(waterSymbol,
+                "water",
+                List.of(new ElementToSize(10, 1)),
+                0,
+                pitSymbol);
+
+        List<MapElementConfiguration> elementsCfg = List.of(mountainsCfg, pitsCfg, mineralsCfg, watersCfg);
+
+        MapConfiguration mapConfig = new MapConfiguration(1000, 0.5, elementsCfg);
+        assertTrue(validator.validate(mapConfig));
+    }
+
+    @Test
+    void testInvalidElementToSpaceRatio() {
+        final String mountainSymbol = "#";
+        final String pitSymbol = "&";
+        final String mineralSymbol = "%";
+        final String waterSymbol = "*";
+
+        MapElementConfiguration mountainsCfg = createMapElementConfiguration(mountainSymbol,
+                "mountain",
+                List.of(new ElementToSize(2, 20), new ElementToSize(1, 30)),
+                3,
+                "");
+
+        MapElementConfiguration pitsCfg = createMapElementConfiguration(pitSymbol,
+                "pit",
+                List.of(new ElementToSize(2, 10), new ElementToSize(1, 20)),
+                10,
+                "");
+
+        MapElementConfiguration mineralsCfg = createMapElementConfiguration(mineralSymbol,
+                "mineral",
+                List.of(new ElementToSize(10, 1)),
+                0,
+                mountainSymbol);
+
+        MapElementConfiguration watersCfg = createMapElementConfiguration(waterSymbol,
+                "water",
+                List.of(new ElementToSize(10, 1)),
+                0,
+                pitSymbol);
+
+        List<MapElementConfiguration> elementsCfg = List.of(mountainsCfg, pitsCfg, mineralsCfg, watersCfg);
+
+        MapConfiguration mapConfig = new MapConfiguration(3, 0.5, elementsCfg);
+        assertFalse(validator.validate(mapConfig));
+    }
+
     private static MapElementConfiguration createMapElementConfiguration(String symbol,
                                                                          String name,
                                                                          List<ElementToSize> elementToSizes,
