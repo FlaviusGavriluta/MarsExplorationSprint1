@@ -11,16 +11,18 @@ public class MapConfigurationValidatorImpl implements MapConfigurationValidator 
     private static final String SYMBOL_PIT = "&";
     private static final String SYMBOL_MINERAL = "%";
     private static final String SYMBOL_WATER = "*";
+    private static final double ELEMENT_TO_SPACE_RATIO = 0.5;
 
     @Override
     public boolean validate(MapConfiguration mapConfig) {
         List<MapElementConfiguration> elements = mapConfig.getMapElementConfigurations();
+        int size = mapConfig.getMapSize();
         for (MapElementConfiguration element : elements) {
             if (!validateElement(element)) {
                 return false;
             }
         }
-        return true;
+        return !(elements.size() > size * ELEMENT_TO_SPACE_RATIO);
     }
 
     private boolean validateElement(MapElementConfiguration element) {
