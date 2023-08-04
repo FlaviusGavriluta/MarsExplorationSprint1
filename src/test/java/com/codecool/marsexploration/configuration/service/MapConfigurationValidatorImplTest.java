@@ -1,4 +1,4 @@
-package com.codecool.test.configuration.service;
+package com.codecool.marsexploration.configuration.service;
 
 import com.codecool.marsexploration.configuration.model.ElementToSize;
 import com.codecool.marsexploration.configuration.model.MapConfiguration;
