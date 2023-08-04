@@ -20,8 +20,8 @@ public class CoordinateCalculatorImpl implements CoordinateCalculator {
     public Iterable<Coordinate> getAdjacentCoordinates(Coordinate coordinate, int dimension) {
         List<Coordinate> adjacentCoordinates = new ArrayList<>();
 
-        int x = coordinate.getX();
-        int y = coordinate.getY();
+        int x = coordinate.x();
+        int y = coordinate.y();
 
         // Top
         if (x - 1 >= 0) {
