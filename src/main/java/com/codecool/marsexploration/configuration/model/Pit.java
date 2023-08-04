@@ -1,4 +1,4 @@
-package com.codecool.marsexploration.mapelements.model;
+package com.codecool.marsexploration.configuration.model;
 
 public class Pit {
     private int dimensionGrowth;
