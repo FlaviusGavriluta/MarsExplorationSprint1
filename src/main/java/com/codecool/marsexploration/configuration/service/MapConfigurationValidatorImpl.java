@@ -10,8 +10,8 @@ public class MapConfigurationValidatorImpl implements MapConfigurationValidator 
     @Override
     public boolean validate(MapConfiguration mapConfig) {
         // Check if minerals are defined as multi-dimensional
-        for (MapElementConfiguration elementConfig : mapConfig.getMapElementConfigurations()) {
-            if (elementConfig.getSymbol().equals("%") && elementConfig.getElementToSizes().size() > 1) {
+        for (MapElementConfiguration elementConfig : mapConfig.mapElementConfigurations()) {
+            if (elementConfig.symbol().equals("%") && elementConfig.elementToSizes().size() > 1) {
                 System.out.println("ERROR: Minerals cannot be multi-dimensional.");
                 return false;
             }
@@ -19,7 +19,7 @@ public class MapConfigurationValidatorImpl implements MapConfigurationValidator 
 
         // Check if the total number of elements exceeds the ElementToSpaceRatio
         int totalElements = getTotalElements(mapConfig);
-        int maxAllowedElements = (int) (mapConfig.getMapSize() * mapConfig.getElementToSpaceRatio());
+        int maxAllowedElements = (int) (mapConfig.mapSize() * mapConfig.elementToSpaceRatio());
 
         if (totalElements > maxAllowedElements) {
             System.out.println("ERROR: The total number of elements exceeds the ElementToSpaceRatio.");
@@ -33,8 +33,8 @@ public class MapConfigurationValidatorImpl implements MapConfigurationValidator 
     private int getTotalElements(MapConfiguration mapConfig) {
         int totalElements = 0;
 
-        for (MapElementConfiguration elementConfig : mapConfig.getMapElementConfigurations()) {
-            for (ElementToSize elementToSize : elementConfig.getElementToSizes()) {
+        for (MapElementConfiguration elementConfig : mapConfig.mapElementConfigurations()) {
+            for (ElementToSize elementToSize : elementConfig.elementToSizes()) {
                 totalElements += elementToSize.elementCount();
             }
         }

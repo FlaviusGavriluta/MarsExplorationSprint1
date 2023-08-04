@@ -10,11 +10,4 @@ public record MapElementConfiguration(
         List<ElementToSize> elementToSizes,
         int dimensionGrowth,
         String preferredLocationSymbol) {
-    public Object getSymbol() {
-        return symbol;
-    }
-
-    public List<ElementToSize> getElementToSizes() {
-        return elementToSizes;
-    }
 }
