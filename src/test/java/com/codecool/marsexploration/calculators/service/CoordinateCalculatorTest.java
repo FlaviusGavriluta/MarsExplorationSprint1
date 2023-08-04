@@ -18,8 +18,8 @@ public class CoordinateCalculatorTest {
 
         for (int i = 0; i < 100; i++) {
             Coordinate coordinate = coordinateCalculator.getRandomCoordinate(dimension);
-            Assertions.assertTrue(coordinate.getX() >= 0 && coordinate.getX() < dimension);
-            Assertions.assertTrue(coordinate.getY() >= 0 && coordinate.getY() < dimension);
+            Assertions.assertTrue(coordinate.x() >= 0 && coordinate.x() < dimension);
+            Assertions.assertTrue(coordinate.y() >= 0 && coordinate.y() < dimension);
         }
     }
 
