@@ -36,7 +36,7 @@ class MapConfigurationValidatorImplTest {
         );
 
         List<MapElementConfiguration> elementsCfg = List.of(mountainsCfg);
-        MapConfiguration validMapConfig = new MapConfiguration(100, 0.5, elementsCfg);
+        MapConfiguration validMapConfig = new MapConfiguration(12, 0.5, elementsCfg);
 
         assertTrue(validator.validate(validMapConfig));
     }
@@ -56,7 +56,7 @@ class MapConfigurationValidatorImplTest {
         );
 
         List<MapElementConfiguration> elementsCfg = List.of(mountainsCfg);
-        MapConfiguration invalidMapConfig = new MapConfiguration(5, 0.3, elementsCfg);
+        MapConfiguration invalidMapConfig = new MapConfiguration(15, 0.3, elementsCfg);
 
         assertFalse(validator.validate(invalidMapConfig));
     }
@@ -68,9 +68,29 @@ class MapConfigurationValidatorImplTest {
                 "%",
                 "mineral",
                 List.of(
-                        new ElementToSize(1, 10)
+                        new ElementToSize(1, 2) // Invalid dimension size for mineral
                 ),
-                3, // Invalid dimension growth for minerals
+                0,
+                "#"
+        );
+
+        List<MapElementConfiguration> elementsCfg = List.of(mineralsCfg);
+        MapConfiguration invalidMapConfig = new MapConfiguration(10, 0.5, elementsCfg);
+
+        assertFalse(validator.validate(invalidMapConfig));
+    }
+
+    // add more tests here
+    @Test
+    void testInvalidMapConfigurationMultiDimensionalWater() {
+        // Create an invalid map configuration with multi-dimensional water
+        MapElementConfiguration mineralsCfg = new MapElementConfiguration(
+                "*",
+                "water",
+                List.of(
+                        new ElementToSize(1, 1)
+                ),
+                3, // Invalid dimension growth for water
                 ""
         );
 
@@ -80,5 +100,4 @@ class MapConfigurationValidatorImplTest {
         assertFalse(validator.validate(invalidMapConfig));
     }
 
-    // Add more test cases for other potential invalid configurations here if needed
 }
