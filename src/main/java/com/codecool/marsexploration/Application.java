@@ -89,7 +89,8 @@ public class Application {
         );
 
 
-        List<MapElementConfiguration> elementsCfg = List.of(mountainsCfg);
+        List<MapElementConfiguration> elementsCfg = List.of(mountainsCfg, pitsCfg, mineralsCfg, waterCfg);
+        System.out.printf("Map configuration: %s\n", elementsCfg);
         return new MapConfiguration(1000, 0.5, elementsCfg);
     }
 }
