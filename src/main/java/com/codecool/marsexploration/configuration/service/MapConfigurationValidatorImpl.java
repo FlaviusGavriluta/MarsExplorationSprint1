@@ -11,7 +11,7 @@ public class MapConfigurationValidatorImpl implements MapConfigurationValidator 
     public boolean validate(MapConfiguration mapConfig) {
         // Check if minerals are defined as multi-dimensional
         for (MapElementConfiguration elementConfig : mapConfig.mapElementConfigurations()) {
-            if (elementConfig.getSymbol().equals("%") && elementConfig.getElementToSizes().size() > 1) {
+            if (elementConfig.symbol().equals("%") && elementConfig.elementToSizes().size() > 1) {
                 System.out.println("ERROR: Minerals cannot be multi-dimensional.");
                 return false;
             }
@@ -34,7 +34,7 @@ public class MapConfigurationValidatorImpl implements MapConfigurationValidator 
         int totalElements = 0;
 
         for (MapElementConfiguration elementConfig : mapConfig.mapElementConfigurations()) {
-            for (ElementToSize elementToSize : elementConfig.getElementToSizes()) {
+            for (ElementToSize elementToSize : elementConfig.elementToSizes()) {
                 totalElements += elementToSize.elementCount();
             }
         }
