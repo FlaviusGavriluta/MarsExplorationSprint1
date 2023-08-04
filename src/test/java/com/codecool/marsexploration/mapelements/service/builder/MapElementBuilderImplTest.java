@@ -1,4 +1,4 @@
-package com.codecool.test.mapelements.service.builder;
+package com.codecool.marsexploration.mapelements.service.builder;
 
 import com.codecool.marsexploration.calculators.service.DimensionCalculator;
 import com.codecool.marsexploration.calculators.service.DimensionCalculatorImpl;

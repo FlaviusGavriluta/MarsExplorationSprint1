@@ -1,4 +1,4 @@
-package com.codecool.test.calculators.service;
+package com.codecool.marsexploration.calculators.service;
 
 import com.codecool.marsexploration.calculators.model.Coordinate;
 import com.codecool.marsexploration.calculators.service.CoordinateCalculatorImpl;
