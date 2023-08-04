@@ -91,6 +91,9 @@ public class Application {
 
         List<MapElementConfiguration> elementsCfg = List.of(mountainsCfg, pitsCfg, mineralsCfg, waterCfg);
         System.out.printf("Map configuration: %s\n", elementsCfg);
-        return new MapConfiguration(1000, 0.5, elementsCfg);
+        MapConfiguration mapConfig = new MapConfiguration(17, 0.5, elementsCfg);
+        MapConfigurationValidatorImpl validator = new MapConfigurationValidatorImpl();
+        System.out.println("Validating map configuration..." + validator.validate(mapConfig));
+        return mapConfig;
     }
 }
