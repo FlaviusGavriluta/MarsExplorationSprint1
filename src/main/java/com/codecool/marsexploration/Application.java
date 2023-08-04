@@ -3,6 +3,7 @@ package com.codecool.marsexploration;
 import com.codecool.marsexploration.calculators.service.*;
 import com.codecool.marsexploration.configuration.model.*;
 import com.codecool.marsexploration.configuration.service.*;
+import com.codecool.marsexploration.mapelements.model.MapElement;
 import com.codecool.marsexploration.mapelements.service.builder.*;
 import com.codecool.marsexploration.mapelements.service.generator.*;
 import com.codecool.marsexploration.mapelements.service.placer.*;
@@ -14,6 +15,10 @@ public class Application {
     private static final String WorkDir = "src/main";
 
     public static void main(String[] args) {
+        MapElementBuilder mapElementBuilder = new MapElementBuilderImpl();
+        MapElement mountain = mapElementBuilder.build(20, "#", "mountain", 3, "");
+        System.out.println(mountain);
+
         System.out.println("Mars Exploration Sprint 1");
         MapConfiguration mapConfig = getConfiguration();
 

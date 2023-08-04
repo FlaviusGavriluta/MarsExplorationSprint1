@@ -16,9 +16,9 @@ public class MapElementBuilderImpl implements MapElementBuilder{
     }
 
     private String[][] representation(String symbol, int dimension) {
-        String[][] representation = new String[dimension + 1][dimension + 1];
-        for (int i = 1; i <= dimension; i++) {
-            for (int j = 1; j <= dimension; j++) {
+        String[][] representation = new String[dimension][dimension];
+        for (int i = 0; i <= dimension - 1; i++) {
+            for (int j = 0; j <= dimension - 1; j++) {
                 representation[i][j] = symbol;
             }
         }
