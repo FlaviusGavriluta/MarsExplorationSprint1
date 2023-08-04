@@ -21,8 +21,8 @@ public class MapConfigurationValidatorImpl implements MapConfigurationValidator 
 
         // Verifică dacă sunt respectate regulile legate de dimensionalitatea elementelor
         for (MapElementConfiguration elementConfig : mapConfig.mapElementConfigurations()) {
-            if ((elementConfig.name().equals("mineral") || elementConfig.name().equals("water")) && !elementConfig.elementToSizes().stream()
-                    .allMatch(size -> size.size() == 1)) {
+            if ((elementConfig.name().equals("mineral") || elementConfig.name().equals("water")) && (!elementConfig.elementToSizes().stream()
+                    .allMatch(size -> size.size() == 1) || elementConfig.dimensionGrowth() != 0)) {
                 return false;
             }
         }
