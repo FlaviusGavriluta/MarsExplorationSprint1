@@ -35,7 +35,7 @@ public class MapConfigurationValidatorImpl implements MapConfigurationValidator 
 
         for (MapElementConfiguration elementConfig : mapConfig.getMapElementConfigurations()) {
             for (ElementToSize elementToSize : elementConfig.getElementToSizes()) {
-                totalElements += elementToSize.getElementCount();
+                totalElements += elementToSize.elementCount();
             }
         }
 
