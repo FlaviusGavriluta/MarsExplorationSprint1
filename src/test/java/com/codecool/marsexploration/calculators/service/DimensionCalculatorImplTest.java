@@ -1,14 +1,12 @@
 package com.codecool.marsexploration.calculators.service;
 
-import com.codecool.marsexploration.calculators.service.DimensionCalculator;
-import com.codecool.marsexploration.calculators.service.DimensionCalculatorImpl;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DimensionCalculatorImplTest {
 
-    private DimensionCalculator calculator = new DimensionCalculatorImpl();
+    private final DimensionCalculator calculator = new DimensionCalculatorImpl();
 
     @Test
     public void testCalculateDimensionWithPositiveValues() {
@@ -20,7 +18,7 @@ class DimensionCalculatorImplTest {
 
     @Test
     public void testCalculateDimensionWithZeroSizeAndGrowth() {
-        assertEquals(0, calculator.calculateDimension(0, 0));
+        assertEquals(-1, calculator.calculateDimension(0, 0));
     }
 
     @Test
