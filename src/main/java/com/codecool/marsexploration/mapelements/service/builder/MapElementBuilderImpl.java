@@ -9,20 +9,25 @@ import com.codecool.marsexploration.mapelements.model.MapElement;
 
 import java.util.Arrays;
 
-public class MapElementBuilderImpl implements MapElementBuilder{
+public class MapElementBuilderImpl implements MapElementBuilder {
+    private final DimensionCalculator dimensionCalculator;
+    private final CoordinateCalculator coordinateCalculator;
+
+    public MapElementBuilderImpl() {
+        this.dimensionCalculator = new DimensionCalculatorImpl();
+        this.coordinateCalculator = new CoordinateCalculatorImpl();
+    }
+
     @Override
     public MapElement build(int size, String symbol, String name, int dimensionGrowth, String preferredLocationSymbol) {
-        DimensionCalculator dimensionCalculator = new DimensionCalculatorImpl();
-
         int dimension = dimensionCalculator.calculateDimension(size, dimensionGrowth);
-        String[][] representation = representation(size, symbol, dimension);
+        String[][] representation = generateRepresentation(size, symbol, dimension);
 
         return new MapElement(representation, name, dimension, preferredLocationSymbol);
     }
 
-    private String[][] representation(int size, String symbol, int dimension) {
+    private String[][] generateRepresentation(int size, String symbol, int dimension) {
         String[][] representation = new String[dimension][dimension];
-        CoordinateCalculator coordinateCalculator = new CoordinateCalculatorImpl();
 
         for (int i = 0; i <= size; i++) {
             Coordinate randomCoordinate = coordinateCalculator.getRandomCoordinate(dimension);
