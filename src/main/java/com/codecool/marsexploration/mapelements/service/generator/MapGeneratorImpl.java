@@ -1,6 +1,8 @@
 package com.codecool.marsexploration.mapelements.service.generator;
 
 import com.codecool.marsexploration.calculators.model.Coordinate;
+import com.codecool.marsexploration.calculators.service.CoordinateCalculator;
+import com.codecool.marsexploration.calculators.service.CoordinateCalculatorImpl;
 import com.codecool.marsexploration.configuration.model.MapConfiguration;
 import com.codecool.marsexploration.configuration.model.MapElementConfiguration;
 import com.codecool.marsexploration.mapelements.model.Map;
@@ -9,76 +11,43 @@ import com.codecool.marsexploration.mapelements.service.placer.MapElementPlacer;
 import com.codecool.marsexploration.mapelements.service.placer.MapElementPlacerImpl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 public class MapGeneratorImpl implements MapGenerator {
 
     private final MapElementPlacer mapElementPlacer;
+    private final MapElementsGenerator mapElementsGenerator;
+    private final CoordinateCalculator coordinateCalculator;
 
-    public MapGeneratorImpl(MapElementPlacerImpl mapElementPlacer) {
+    public MapGeneratorImpl(MapElementPlacer mapElementPlacer, MapElementsGenerator mapElementsGenerator, CoordinateCalculator coordinateCalculator) {
         this.mapElementPlacer = new MapElementPlacerImpl();
+        this.mapElementsGenerator = new MapElementsGeneratorImpl();
+        this.coordinateCalculator = new CoordinateCalculatorImpl();
     }
 
     @Override
     public Map generate(MapConfiguration mapConfig) {
         int mapSize = mapConfig.getMapSize();
-        String[][] mapRepresentation = new String[mapSize][mapSize];
-        List<Coordinate> freeCoordinates = new ArrayList<>();
+        double elementToSpaceRatio = mapConfig.getElementToSpaceRatio();
+        List<MapElementConfiguration> mapElementConfigurations = mapConfig.getMapElementConfigurations();
+        Iterable<MapElement> mapElements = mapElementsGenerator.createAll(mapConfig);
+        String[][] map = new String[mapSize][mapSize];
 
-        // Initialize the map with empty spaces and populate the freeCoordinates list
-        for (int i = 0; i < mapSize; i++) {
-            for (int j = 0; j < mapSize; j++) {
-                mapRepresentation[i][j] = " ";
-                freeCoordinates.add(new Coordinate(i, j));
+        for (String[] strings : map) {
+            Arrays.fill(strings, " ");
+        }
+
+        for (MapElement mapElement : mapElements) {
+            Coordinate randomCoordinate = coordinateCalculator.getRandomCoordinate(mapSize);
+            if (mapElementPlacer.canPlaceElement(mapElement, map, randomCoordinate)){
+                mapElementPlacer.placeElement(mapElement, map, randomCoordinate);
+            } else {
+                System.out.println(mapElement.getName() + " could not be placed on the map");
             }
         }
 
-        // Generate and place all map elements
-        List<MapElementConfiguration> elementConfigs = mapConfig.getMapElementConfigurations();
-        for (MapElementConfiguration elementConfig : elementConfigs) {
-            int elementCount = elementConfig.getElementToSizes().get(0).getElementCount();
-            int elementSize = elementConfig.getElementToSizes().get(0).size();
-            String symbol = (String) elementConfig.getSymbol();
-
-            for (int i = 0; i < elementCount; i++) {
-                boolean placed = false;
-                while (!placed && !freeCoordinates.isEmpty()) {
-                    Random random = new Random();
-                    int randomIndex = random.nextInt(freeCoordinates.size());
-                    Coordinate coordinate = freeCoordinates.get(randomIndex);
-                    MapElement element = new MapElement(generateElementRepresentation(symbol, elementSize), elementConfig.name(), elementSize);
-                    if (mapElementPlacer.canPlaceElement(element, mapRepresentation, coordinate)) {
-                        mapElementPlacer.placeElement(element, mapRepresentation, coordinate);
-                        updateFreeCoordinates(freeCoordinates, coordinate, elementSize);
-                        placed = true;
-                    }
-                }
-            }
-        }
-
-        return new Map(mapRepresentation);
-    }
-
-    private void updateFreeCoordinates(List<Coordinate> freeCoordinates, Coordinate placedCoordinate, int elementSize) {
-        List<Coordinate> coordinatesToRemove = new ArrayList<>();
-        for (Coordinate coordinate : freeCoordinates) {
-            int distanceX = Math.abs(coordinate.getX() - placedCoordinate.getX());
-            int distanceY = Math.abs(coordinate.getY() - placedCoordinate.getY());
-            if (distanceX <= elementSize / 2 && distanceY <= elementSize / 2) {
-                coordinatesToRemove.add(coordinate);
-            }
-        }
-        freeCoordinates.removeAll(coordinatesToRemove);
-    }
-
-    private String[][] generateElementRepresentation(String symbol, int dimension) {
-        String[][] representation = new String[dimension][dimension];
-        for (int i = 0; i < dimension; i++) {
-            for (int j = 0; j < dimension; j++) {
-                representation[i][j] = symbol;
-            }
-        }
-        return representation;
+        return new Map(map);
     }
 }

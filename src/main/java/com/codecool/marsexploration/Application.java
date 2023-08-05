@@ -3,11 +3,13 @@ package com.codecool.marsexploration;
 import com.codecool.marsexploration.calculators.service.*;
 import com.codecool.marsexploration.configuration.model.*;
 import com.codecool.marsexploration.configuration.service.*;
+import com.codecool.marsexploration.mapelements.model.Map;
 import com.codecool.marsexploration.mapelements.model.MapElement;
 import com.codecool.marsexploration.mapelements.service.builder.*;
 import com.codecool.marsexploration.mapelements.service.generator.*;
 import com.codecool.marsexploration.mapelements.service.placer.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Application {
@@ -15,21 +17,20 @@ public class Application {
     private static final String WorkDir = "src/main";
 
     public static void main(String[] args) {
-//        MapElementBuilder mapElementBuilder = new MapElementBuilderImpl();
-//        MapElement mountain = mapElementBuilder.build(20, "#", "mountain", 3, "");
-//        System.out.println(mountain);
-
         System.out.println("Mars Exploration Sprint 1");
         MapConfiguration mapConfig = getConfiguration();
 
         MapElementBuilder mapElementFactory = null;
-        MapElementsGenerator mapElementsGenerator = null;
+        MapElementsGenerator mapElementsGenerator = new MapElementsGeneratorImpl();
+        CoordinateCalculator coordinateCalculator = new CoordinateCalculatorImpl();
 
         MapConfigurationValidator mapConfigValidator = new MapConfigurationValidatorImpl();
         System.out.println("Map is valid: " + mapConfigValidator.validate(mapConfig));
-        MapElementPlacer mapElementPlacer = null;
+        MapElementPlacer mapElementPlacer = new MapElementPlacerImpl();
 
-        MapGenerator mapGenerator = null;
+        MapGenerator mapGenerator = new MapGeneratorImpl(mapElementPlacer, mapElementsGenerator, coordinateCalculator);
+        Map map = mapGenerator.generate(mapConfig);
+        System.out.println(Arrays.deepToString(map.getRepresentation()));
 
         createAndWriteMaps(3, mapGenerator, mapConfig);
 
@@ -88,6 +89,6 @@ public class Application {
         );
 
         List<MapElementConfiguration> elementsCfg = List.of(mountainsCfg, pitsCfg, mineralsCfg, watersCfg);
-        return new MapConfiguration(1000, 0.5, elementsCfg);
+        return new MapConfiguration(10, 0.5, elementsCfg);
     }
 }
