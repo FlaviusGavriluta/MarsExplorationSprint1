@@ -2,42 +2,28 @@ package com.codecool.marsexploration.mapelements.service.generator;
 
 import com.codecool.marsexploration.calculators.service.DimensionCalculator;
 import com.codecool.marsexploration.calculators.service.DimensionCalculatorImpl;
+import com.codecool.marsexploration.configuration.model.ElementToSize;
 import com.codecool.marsexploration.configuration.model.MapConfiguration;
 import com.codecool.marsexploration.configuration.model.MapElementConfiguration;
 import com.codecool.marsexploration.mapelements.model.MapElement;
+import com.codecool.marsexploration.mapelements.service.builder.MapElementBuilder;
+import com.codecool.marsexploration.mapelements.service.builder.MapElementBuilderImpl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MapElementsGeneratorImpl implements MapElementsGenerator{
+    private final MapElementBuilder mapElementBuilder = new MapElementBuilderImpl();
     @Override
     public Iterable<MapElement> createAll(MapConfiguration mapConfig) {
-        List<MapElement> generatedElements = new ArrayList<>();
-        DimensionCalculator dimensionCalculator = new DimensionCalculatorImpl();
+        List<MapElement> mapElements = new ArrayList<>();
+        List<MapElementConfiguration> mapElementConfigurations = mapConfig.getMapElementConfigurations();
 
-        for (MapElementConfiguration elementConfig : mapConfig.getMapElementConfigurations()) {
-            String symbol = elementConfig.symbol();
-            String name = elementConfig.name();
-            int dimensionGrowth = elementConfig.dimensionGrowth();
-            String preferredLocationSymbol = elementConfig.preferredLocationSymbol();
-
-            int dimension = dimensionCalculator.calculateDimension(mapConfig.getMapSize(), dimensionGrowth);
-            String[][] representation = createRepresentation(symbol, dimension);
-
-            MapElement mapElement = new MapElement(representation, name, dimension, preferredLocationSymbol);
-            generatedElements.add(mapElement);
-        }
-
-        return generatedElements;
-    }
-
-    private String[][] createRepresentation(String symbol, int dimension) {
-        String[][] representation = new String[dimension][dimension];
-        for (int i = 0; i < dimension; i++) {
-            for (int j = 0; j < dimension; j++) {
-                representation[i][j] = symbol;
+        for (MapElementConfiguration mapElementConfiguration : mapElementConfigurations) {
+            for (ElementToSize elementToSize : mapElementConfiguration.getElementToSizes()) {
+                mapElements.add(mapElementBuilder.build(elementToSize.size(), mapElementConfiguration.symbol(), mapElementConfiguration.name(), mapElementConfiguration.dimensionGrowth(), mapElementConfiguration.preferredLocationSymbol()));
             }
         }
-        return representation;
+        return mapElements;
     }
 }

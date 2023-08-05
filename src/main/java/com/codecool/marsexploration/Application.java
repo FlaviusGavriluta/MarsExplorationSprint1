@@ -15,15 +15,12 @@ public class Application {
     private static final String WorkDir = "src/main";
 
     public static void main(String[] args) {
-        MapElementBuilder mapElementBuilder = new MapElementBuilderImpl();
-        MapElement mountain = mapElementBuilder.build(20, "#", "mountain", 3, "");
-        System.out.println(mountain);
+//        MapElementBuilder mapElementBuilder = new MapElementBuilderImpl();
+//        MapElement mountain = mapElementBuilder.build(20, "#", "mountain", 3, "");
+//        System.out.println(mountain);
 
         System.out.println("Mars Exploration Sprint 1");
         MapConfiguration mapConfig = getConfiguration();
-
-        DimensionCalculator dimensionCalculator = new DimensionCalculatorImpl();
-        CoordinateCalculator coordinateCalculator = null;
 
         MapElementBuilder mapElementFactory = null;
         MapElementsGenerator mapElementsGenerator = null;
