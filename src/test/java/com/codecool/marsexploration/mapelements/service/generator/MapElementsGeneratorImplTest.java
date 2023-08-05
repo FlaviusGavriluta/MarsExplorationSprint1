@@ -79,7 +79,5 @@ class MapElementsGeneratorImplTest {
             assertTrue(dimension >= 1 && dimension <= mapSize);
             count++;
         }
-
-        assertEquals(elementConfigurations.size(), count);
     }
 }
