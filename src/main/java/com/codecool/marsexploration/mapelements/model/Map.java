@@ -18,7 +18,15 @@ public class Map {
     }
 
     private static String createStringRepresentation(String[][] arr) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                sb.append(arr[i][j]);
+                if (j < arr[i].length - 1) sb.append(" "); // Delimitator
+            }
+            if (i < arr.length - 1) sb.append("\n"); // Linie nouă pentru fiecare rând, exceptând ultimul
+        }
+        return sb.toString();
     }
 
     @Override
