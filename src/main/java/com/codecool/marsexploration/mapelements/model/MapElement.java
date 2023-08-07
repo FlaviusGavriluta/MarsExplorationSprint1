@@ -25,6 +25,10 @@ public class MapElement extends Map {
         return dimension;
     }
 
+    public boolean isMultidimensional() {
+        return dimension > 1;
+    }
+
     @Override
     public String toString() {
         return super.toString();
