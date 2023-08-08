@@ -4,12 +4,9 @@ import com.codecool.marsexploration.calculators.service.*;
 import com.codecool.marsexploration.configuration.model.*;
 import com.codecool.marsexploration.configuration.service.*;
 import com.codecool.marsexploration.mapelements.model.Map;
-import com.codecool.marsexploration.mapelements.model.MapElement;
-import com.codecool.marsexploration.mapelements.service.builder.*;
 import com.codecool.marsexploration.mapelements.service.generator.*;
 import com.codecool.marsexploration.mapelements.service.placer.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class Application {
@@ -21,11 +18,6 @@ public class Application {
         MapConfiguration mapConfig = getConfiguration();
 
         MapElementsGenerator mapElementsGenerator = new MapElementsGeneratorImpl();
-
-        Iterable<MapElement> mapElements = mapElementsGenerator.createAll(mapConfig);
-        for (MapElement mapElement : mapElements) {
-            System.out.println(mapElement);
-        }
         CoordinateCalculator coordinateCalculator = new CoordinateCalculatorImpl();
 
         MapConfigurationValidator mapConfigValidator = new MapConfigurationValidatorImpl();
@@ -34,7 +26,7 @@ public class Application {
 
         MapGenerator mapGenerator = new MapGeneratorImpl(mapElementPlacer, mapElementsGenerator, coordinateCalculator);
         Map map = mapGenerator.generate(mapConfig);
-        System.out.println(Arrays.deepToString(map.getRepresentation()));
+        System.out.println(map.toString());
 
         createAndWriteMaps(3, mapGenerator, mapConfig);
 
@@ -93,6 +85,6 @@ public class Application {
         );
 
         List<MapElementConfiguration> elementsCfg = List.of(mountainsCfg, pitsCfg, mineralsCfg, watersCfg);
-        return new MapConfiguration(10, 0.5, elementsCfg);
+        return new MapConfiguration(100, 0.5, elementsCfg);
     }
 }

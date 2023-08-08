@@ -30,8 +30,6 @@ public class MapGeneratorImpl implements MapGenerator {
     @Override
     public Map generate(MapConfiguration mapConfig) {
         int mapSize = mapConfig.getMapSize();
-        double elementToSpaceRatio = mapConfig.getElementToSpaceRatio();
-        List<MapElementConfiguration> mapElementConfigurations = mapConfig.getMapElementConfigurations();
         Iterable<MapElement> mapElements = mapElementsGenerator.createAll(mapConfig);
         String[][] map = new String[mapSize][mapSize];
 
@@ -41,11 +39,10 @@ public class MapGeneratorImpl implements MapGenerator {
 
         for (MapElement mapElement : mapElements) {
             Coordinate randomCoordinate = coordinateCalculator.getRandomCoordinate(mapSize);
-            if (mapElementPlacer.canPlaceElement(mapElement, map, randomCoordinate)){
-                mapElementPlacer.placeElement(mapElement, map, randomCoordinate);
-            } else {
-                System.out.println(mapElement.getName() + " could not be placed on the map");
+            while (!mapElementPlacer.canPlaceElement(mapElement, map, randomCoordinate)) {
+                randomCoordinate = coordinateCalculator.getRandomCoordinate(mapSize);
             }
+            mapElementPlacer.placeElement(mapElement, map, randomCoordinate);
         }
 
         return new Map(map);
