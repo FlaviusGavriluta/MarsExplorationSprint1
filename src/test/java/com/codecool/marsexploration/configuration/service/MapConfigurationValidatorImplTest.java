@@ -3,14 +3,13 @@ package com.codecool.marsexploration.configuration.service;
 import com.codecool.marsexploration.configuration.model.ElementToSize;
 import com.codecool.marsexploration.configuration.model.MapConfiguration;
 import com.codecool.marsexploration.configuration.model.MapElementConfiguration;
-import com.codecool.marsexploration.configuration.service.MapConfigurationValidator;
-import com.codecool.marsexploration.configuration.service.MapConfigurationValidatorImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class MapConfigurationValidatorImplTest {
 
@@ -19,6 +18,48 @@ class MapConfigurationValidatorImplTest {
     @BeforeEach
     void setUp() {
         validator = new MapConfigurationValidatorImpl();
+    }
+
+    @Test
+    void testValidate_ValidConfiguration() {
+        MapConfigurationValidator validator = new MapConfigurationValidatorImpl();
+        MapConfiguration mapConfig = createValidConfiguration();
+        assertTrue(validator.validate(mapConfig));
+    }
+
+    @Test
+    void testValidate_InvalidDimensions() {
+        MapConfigurationValidator validator = new MapConfigurationValidatorImpl();
+        MapConfiguration mapConfig = createInvalidDimensionsConfiguration();
+        assertFalse(validator.validate(mapConfig));
+    }
+
+    @Test
+    void testValidate_ExceedsElementToSpaceRatio() {
+        MapConfigurationValidator validator = new MapConfigurationValidatorImpl();
+        MapConfiguration mapConfig = createExceedingElementToSpaceRatioConfiguration();
+        assertFalse(validator.validate(mapConfig));
+    }
+
+    private MapConfiguration createValidConfiguration() {
+        List<ElementToSize> mineralToSizes = List.of(new ElementToSize(5, 1));
+        MapElementConfiguration mineral = new MapElementConfiguration("%", "mineral", mineralToSizes, 1, "#");
+        List<MapElementConfiguration> mapElementConfigurations = List.of(mineral);
+        return new MapConfiguration(10, 0.25, mapElementConfigurations);
+    }
+
+
+
+    private MapConfiguration createInvalidDimensionsConfiguration() {
+        // Aici puteți crea o configurație cu dimensiuni nevalide
+        // ...
+        return new MapConfiguration(/*...*/);
+    }
+
+    private MapConfiguration createExceedingElementToSpaceRatioConfiguration() {
+        // Aici puteți crea o configurație care depășește ElementToSpaceRatio
+        // ...
+        return new MapConfiguration(/*...*/);
     }
 
     @Test
