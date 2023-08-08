@@ -7,7 +7,7 @@ public class MapElement extends Map {
     private String preferredLocationSymbol;
 
     public MapElement(String[][] representation, String name, int dimension) {
-        this(representation, name, dimension, null);
+        this(representation, name, dimension, "");
     }
 
     public MapElement(String[][] representation, String name, int dimension, String preferredLocationSymbol) {

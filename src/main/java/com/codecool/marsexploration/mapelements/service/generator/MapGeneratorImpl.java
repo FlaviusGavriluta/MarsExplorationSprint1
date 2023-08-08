@@ -11,7 +11,7 @@ public class MapGeneratorImpl implements MapGenerator {
 
     private MapElementsGenerator elementsGenerator;
     private MapElementPlacer elementPlacer;
-    private CoordinateCalculator coordinateCalculator; // Serviciul pentru calcularea coordonatelor
+    private CoordinateCalculator coordinateCalculator;
 
     public MapGeneratorImpl(MapElementsGenerator elementsGenerator, MapElementPlacer elementPlacer, CoordinateCalculator coordinateCalculator) {
         this.elementsGenerator = elementsGenerator;
@@ -21,22 +21,23 @@ public class MapGeneratorImpl implements MapGenerator {
 
     @Override
     public Map generate(MapConfiguration mapConfig) {
-        int mapSize = mapConfig.mapSize(); // Presupunând că există o metodă getMapSize() în MapConfiguration
+        int mapSize = mapConfig.mapSize();
 
-        // Crearea hărții goale cu dimensiunea specificată
         String[][] emptyMapRepresentation = new String[mapSize][mapSize];
-        Map map = new Map(emptyMapRepresentation);
 
-        // Generarea elementelor pe baza configurației
+        for (int i = 0; i < emptyMapRepresentation.length; i++) {
+            for (int j = 0; j < emptyMapRepresentation[0].length; j++) {
+                emptyMapRepresentation[i][j] = " ";
+            }
+        }
+
+        Map map = new Map(emptyMapRepresentation);
         Iterable<MapElement> elements = elementsGenerator.createAll(mapConfig);
 
-        // Plasarea elementelor pe hartă
         for (MapElement element : elements) {
-            Coordinate coordinate = coordinateCalculator.getRandomCoordinate(mapSize); // Generează coordonate aleatorii
-
-            // Verifică dacă elementul poate fi plasat și încearcă alte coordonate dacă este necesar
+            Coordinate coordinate = coordinateCalculator.getRandomCoordinate(mapSize);
             while (!elementPlacer.canPlaceElement(element, emptyMapRepresentation, coordinate)) {
-                coordinate = coordinateCalculator.getRandomCoordinate(mapSize); // Generează noi coordonate
+                coordinate = coordinateCalculator.getRandomCoordinate(mapSize);
             }
 
             elementPlacer.placeElement(element, emptyMapRepresentation, coordinate);

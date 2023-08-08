@@ -3,6 +3,9 @@ package com.codecool.marsexploration.mapelements.service.placer;
 import com.codecool.marsexploration.calculators.model.Coordinate;
 import com.codecool.marsexploration.mapelements.model.MapElement;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 public class MapElementPlacerImpl implements MapElementPlacer {
 
     @Override
@@ -11,17 +14,19 @@ public class MapElementPlacerImpl implements MapElementPlacer {
         int x = coordinate.x();
         int y = coordinate.y();
 
-        // Verifică dacă coordonatele sunt în limitele hărții
         if (x + dimension > map.length || y + dimension > map[0].length) {
+            System.out.println("First if");
             return false;
         }
 
         if (dimension == 1) {
-            return map[x][y] == null; // sau cum vrei să reprezinți un spațiu liber
+            System.out.println("Second if");
+            return Objects.equals(map[x][y], " ");
         } else {
             for (int i = x; i < x + dimension; i++) {
                 for (int j = y; j < y + dimension; j++) {
-                    if (map[i][j] != null) {
+                    if (!Objects.equals(map[i][j], " ")) {
+                        System.out.println("Third if");
                         return false;
                     }
                 }
@@ -32,25 +37,20 @@ public class MapElementPlacerImpl implements MapElementPlacer {
 
     @Override
     public void placeElement(MapElement element, String[][] map, Coordinate coordinate) {
-        if (canPlaceElement(element, map, coordinate)) {
-            int dimension = element.getDimension();
-            int x = coordinate.x();
-            int y = coordinate.y();
-            String[][] representation = element.getRepresentation();
+        int dimension = element.getDimension();
+        int x = coordinate.x();
+        int y = coordinate.y();
+        System.out.println(element);
+        String[][] representation = element.getRepresentation();
+        System.out.println(Arrays.deepToString(representation));
 
-            if (dimension == 1) {
-                map[x][y] = representation[0][0];
-            } else {
-                for (int i = 0; i < dimension; i++) {
-                    for (int j = 0; j < dimension; j++) {
-                        map[x + i][y + j] = representation[i][j];
-                    }
-                }
-            }
+        if (dimension == 1) {
+            map[x][y] = representation[0][0];
         } else {
-            // Tratarea cazului în care elementul nu poate fi plasat
-            // De exemplu, arunci o excepție sau loghezi o eroare
-            throw new IllegalArgumentException("Elementul nu poate fi plasat la coordonatele date.");
+            for (int i = 0; i < dimension; i++) {
+                System.arraycopy(representation[i], 0, map[x + i], y , dimension);
+            }
         }
+
     }
 }
