@@ -13,8 +13,6 @@ public class MapConfigurationValidatorImpl implements MapConfigurationValidator 
                         .mapToInt(element -> element.elementCount() * element.size())
                         .sum()).sum();
 
-        System.out.printf("Total size of elements: %d\n", totalSizeElements);
-
         // 2. Check if the total number of elements does not exceed the limit imposed by ElementToSpaceRatio.
         // This ensures that the elements do not take up too much space on the map.
         if (totalSizeElements > mapConfig.mapSize() * mapConfig.mapSize() * mapConfig.elementToSpaceRatio()) {
