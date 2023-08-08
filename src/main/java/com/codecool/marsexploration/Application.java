@@ -12,7 +12,6 @@ import java.io.File;
 import java.util.List;
 
 public class Application {
-    // You can change this to any directory you like
     private static final String WORK_DIR = "src/main";
 
     public static void main(String[] args) {
