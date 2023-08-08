@@ -7,8 +7,6 @@ import com.codecool.marsexploration.calculators.service.DimensionCalculator;
 import com.codecool.marsexploration.calculators.service.DimensionCalculatorImpl;
 import com.codecool.marsexploration.mapelements.model.MapElement;
 
-import java.util.Arrays;
-
 public class MapElementBuilderImpl implements MapElementBuilder {
     private final DimensionCalculator dimensionCalculator;
     private final CoordinateCalculator coordinateCalculator;

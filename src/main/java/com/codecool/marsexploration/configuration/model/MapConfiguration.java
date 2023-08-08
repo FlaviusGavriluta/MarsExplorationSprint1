@@ -11,10 +11,6 @@ public record MapConfiguration(
         return mapSize;
     }
 
-    public double getElementToSpaceRatio() {
-        return elementToSpaceRatio;
-    }
-
     public List<MapElementConfiguration> getMapElementConfigurations() {
         return mapElementConfigurations;
     }

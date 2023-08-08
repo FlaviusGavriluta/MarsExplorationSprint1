@@ -4,16 +4,12 @@ import com.codecool.marsexploration.calculators.model.Coordinate;
 import com.codecool.marsexploration.calculators.service.CoordinateCalculator;
 import com.codecool.marsexploration.calculators.service.CoordinateCalculatorImpl;
 import com.codecool.marsexploration.configuration.model.MapConfiguration;
-import com.codecool.marsexploration.configuration.model.MapElementConfiguration;
 import com.codecool.marsexploration.mapelements.model.Map;
 import com.codecool.marsexploration.mapelements.model.MapElement;
 import com.codecool.marsexploration.mapelements.service.placer.MapElementPlacer;
 import com.codecool.marsexploration.mapelements.service.placer.MapElementPlacerImpl;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
 
 public class MapGeneratorImpl implements MapGenerator {
 
@@ -21,7 +17,7 @@ public class MapGeneratorImpl implements MapGenerator {
     private final MapElementsGenerator mapElementsGenerator;
     private final CoordinateCalculator coordinateCalculator;
 
-    public MapGeneratorImpl(MapElementPlacer mapElementPlacer, MapElementsGenerator mapElementsGenerator, CoordinateCalculator coordinateCalculator) {
+    public MapGeneratorImpl(CoordinateCalculator coordinateCalculator) {
         this.mapElementPlacer = new MapElementPlacerImpl(coordinateCalculator);
         this.mapElementsGenerator = new MapElementsGeneratorImpl();
         this.coordinateCalculator = new CoordinateCalculatorImpl();

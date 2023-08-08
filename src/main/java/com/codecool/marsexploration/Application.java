@@ -5,7 +5,6 @@ import com.codecool.marsexploration.configuration.model.*;
 import com.codecool.marsexploration.configuration.service.*;
 import com.codecool.marsexploration.mapelements.model.Map;
 import com.codecool.marsexploration.mapelements.service.generator.*;
-import com.codecool.marsexploration.mapelements.service.placer.*;
 import com.codecool.marsexploration.output.service.MapFileWriter;
 import com.codecool.marsexploration.output.service.MapFileWriterImpl;
 
@@ -20,14 +19,12 @@ public class Application {
         System.out.println("Mars Exploration Sprint 1");
         MapConfiguration mapConfig = getConfiguration();
 
-        MapElementsGenerator mapElementsGenerator = new MapElementsGeneratorImpl();
         CoordinateCalculator coordinateCalculator = new CoordinateCalculatorImpl();
 
         MapConfigurationValidator mapConfigValidator = new MapConfigurationValidatorImpl();
         System.out.println("Map is valid: " + mapConfigValidator.validate(mapConfig));
-        MapElementPlacer mapElementPlacer = new MapElementPlacerImpl(coordinateCalculator);
 
-        MapGenerator mapGenerator = new MapGeneratorImpl(mapElementPlacer, mapElementsGenerator, coordinateCalculator);
+        MapGenerator mapGenerator = new MapGeneratorImpl(coordinateCalculator);
 
         createAndWriteMaps(3, mapGenerator, mapConfig);
 

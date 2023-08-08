@@ -27,33 +27,33 @@ public class MapConfigurationValidatorImpl implements MapConfigurationValidator 
 
     private boolean validateElement(MapElementConfiguration element) {
         return switch (element.symbol()) {
-            case SYMBOL_MOUNTAIN -> validateWallElement(element);
-            case SYMBOL_PIT -> validateRockElement(element);
-            case SYMBOL_MINERAL -> validateResourceElement(element);
-            case SYMBOL_WATER -> validateMarkerElement(element);
+            case SYMBOL_MOUNTAIN -> validateMountainElement(element);
+            case SYMBOL_PIT -> validatePitElement(element);
+            case SYMBOL_MINERAL -> validateMineralElement(element);
+            case SYMBOL_WATER -> validateWaterElement(element);
             default -> false;
         };
     }
 
-    private boolean validateWallElement(MapElementConfiguration element) {
+    private boolean validateMountainElement(MapElementConfiguration element) {
         return element.dimensionGrowth() == 3
                 && element.getElementToSizes().size() >= 2
                 && element.preferredLocationSymbol().isEmpty();
     }
 
-    private boolean validateRockElement(MapElementConfiguration element) {
+    private boolean validatePitElement(MapElementConfiguration element) {
         return element.dimensionGrowth() == 10
                 && element.getElementToSizes().size() >= 2
                 && element.preferredLocationSymbol().isEmpty();
     }
 
-    private boolean validateResourceElement(MapElementConfiguration element) {
+    private boolean validateMineralElement(MapElementConfiguration element) {
         return element.dimensionGrowth() == 0
                 && element.getElementToSizes().size() <= 1
                 && element.preferredLocationSymbol().equals(SYMBOL_MOUNTAIN);
     }
 
-    private boolean validateMarkerElement(MapElementConfiguration element) {
+    private boolean validateWaterElement(MapElementConfiguration element) {
         return element.dimensionGrowth() == 0
                 && element.getElementToSizes().size() <= 1
                 && element.preferredLocationSymbol().equals(SYMBOL_PIT);

@@ -4,8 +4,6 @@ import com.codecool.marsexploration.calculators.model.Coordinate;
 import com.codecool.marsexploration.calculators.service.CoordinateCalculator;
 import com.codecool.marsexploration.mapelements.model.MapElement;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
 public class MapElementPlacerImpl implements MapElementPlacer {
