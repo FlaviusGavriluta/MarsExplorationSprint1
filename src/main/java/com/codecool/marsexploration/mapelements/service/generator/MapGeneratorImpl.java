@@ -37,6 +37,8 @@ public class MapGeneratorImpl implements MapGenerator {
             // Verifică dacă elementul poate fi plasat și încearcă alte coordonate dacă este necesar
             while (!elementPlacer.canPlaceElement(element, emptyMapRepresentation, coordinate)) {
                 coordinate = coordinateCalculator.getRandomCoordinate(mapSize); // Generează noi coordonate
+                System.out.println("Intra in while");
+                System.out.println("Element " + element + " can't be placed at " + coordinate.toString());
             }
 
             elementPlacer.placeElement(element, emptyMapRepresentation, coordinate);

@@ -17,16 +17,20 @@ public class Application {
         System.out.println("Mars Exploration Sprint 1");
         MapConfiguration mapConfig = getConfiguration();
 
-        DimensionCalculator dimensionCalculator = null;
-        CoordinateCalculator coordinateCalculator = null;
+        DimensionCalculator dimensionCalculator = new DimensionCalculatorImpl();
+        CoordinateCalculator coordinateCalculator = new CoordinateCalculatorImpl();
 
-        MapElementBuilder mapElementFactory = null;
-        MapElementsGenerator mapElementsGenerator = null;
+        MapElementBuilder mapElementFactory = new MapElementBuilderImpl(dimensionCalculator);
+        MapElementsGenerator mapElementsGenerator = new MapElementsGeneratorImpl(mapElementFactory);
 
-        MapConfigurationValidator mapConfigValidator = null;
-        MapElementPlacer mapElementPlacer = null;
+        MapConfigurationValidator mapConfigValidator = new MapConfigurationValidatorImpl();
+        MapElementPlacer mapElementPlacer = new MapElementPlacerImpl();
 
-        MapGenerator mapGenerator = null;
+        MapGenerator mapGenerator = new MapGeneratorImpl(
+                mapElementsGenerator,
+                mapElementPlacer,
+                coordinateCalculator
+        );
 
         createAndWriteMaps(3, mapGenerator, mapConfig);
 
