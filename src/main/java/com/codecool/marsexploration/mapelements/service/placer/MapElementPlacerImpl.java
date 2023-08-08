@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class MapElementPlacerImpl implements MapElementPlacer {
-
     @Override
     public boolean canPlaceElement(MapElement element, String[][] map, Coordinate coordinate) {
         int dimension = element.getDimension();

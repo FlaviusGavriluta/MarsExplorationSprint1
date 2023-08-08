@@ -1,6 +1,7 @@
 package com.codecool.marsexploration.configuration.service;
 
-import com.codecool.marsexploration.configuration.model.*;
+import com.codecool.marsexploration.configuration.model.MapConfiguration;
+import com.codecool.marsexploration.configuration.model.MapElementConfiguration;
 
 public class MapConfigurationValidatorImpl implements MapConfigurationValidator {
     @Override

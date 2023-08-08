@@ -17,7 +17,11 @@ public class Map {
         this.successfullyGenerated = successfullyGenerated;
     }
 
-    private static String createStringRepresentation(String[][] arr) {
+    public String[][] getRepresentation() {
+        return representation;
+    }
+
+    public static String createStringRepresentation(String[][] arr) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr[i].length; j++) {

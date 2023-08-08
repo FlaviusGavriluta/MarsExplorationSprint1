@@ -60,10 +60,8 @@ public class Application {
         MapElementConfiguration mountainsCfg = new MapElementConfiguration(
                 mountainSymbol,
                 "mountain",
-                List.of(
-                        new ElementToSize(2, 20),
-                        new ElementToSize(1, 30)
-                ),
+                List.of(new ElementToSize(2, 20),
+                        new ElementToSize(1, 30)),
                 3,
                 ""
         );
@@ -74,8 +72,7 @@ public class Application {
                 "pit",
                 List.of(
                         new ElementToSize(2, 10),
-                        new ElementToSize(1, 20)
-                ),
+                        new ElementToSize(1, 20)),
                 10,
                 ""
         );
@@ -85,8 +82,7 @@ public class Application {
                 mineralSymbol,
                 "mineral",
                 List.of(
-                        new ElementToSize(10, 1)
-                ),
+                        new ElementToSize(10, 1)),
                 0,
                 mountainSymbol
         );
@@ -96,13 +92,12 @@ public class Application {
                 waterSymbol,
                 "water",
                 List.of(
-                        new ElementToSize(10, 1)
-                ),
+                        new ElementToSize(10, 1)),
                 0,
                 pitSymbol
         );
 
-
+        // Map configuration
         List<MapElementConfiguration> elementsCfg = List.of(mountainsCfg, pitsCfg, mineralsCfg, waterCfg);
         System.out.printf("Map configuration: %s\n", elementsCfg);
         MapConfiguration mapConfig = new MapConfiguration(17, 0.5, elementsCfg);
