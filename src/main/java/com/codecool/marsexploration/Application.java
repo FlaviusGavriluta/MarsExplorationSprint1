@@ -6,12 +6,15 @@ import com.codecool.marsexploration.configuration.service.*;
 import com.codecool.marsexploration.mapelements.model.Map;
 import com.codecool.marsexploration.mapelements.service.generator.*;
 import com.codecool.marsexploration.mapelements.service.placer.*;
+import com.codecool.marsexploration.output.service.MapFileWriter;
+import com.codecool.marsexploration.output.service.MapFileWriterImpl;
 
+import java.io.File;
 import java.util.List;
 
 public class Application {
     // You can change this to any directory you like
-    private static final String WorkDir = "src/main";
+    private static final String WORK_DIR = "src/main";
 
     public static void main(String[] args) {
         System.out.println("Mars Exploration Sprint 1");
@@ -25,8 +28,6 @@ public class Application {
         MapElementPlacer mapElementPlacer = new MapElementPlacerImpl(coordinateCalculator);
 
         MapGenerator mapGenerator = new MapGeneratorImpl(mapElementPlacer, mapElementsGenerator, coordinateCalculator);
-        Map map = mapGenerator.generate(mapConfig);
-        System.out.println(map.toString());
 
         createAndWriteMaps(3, mapGenerator, mapConfig);
 
@@ -34,6 +35,21 @@ public class Application {
     }
 
     private static void createAndWriteMaps(int count, MapGenerator mapGenerator, MapConfiguration mapConfig) {
+        File mapDir = new File(WORK_DIR + "/resources/maps");
+        if (!mapDir.exists()) {
+            mapDir.mkdir();
+        }
+
+        for (int i = 1; i <= count; i++) {
+            Map map = mapGenerator.generate(mapConfig);
+            String filename = "map_" + i + ".map";
+            writeMapToFile(mapDir.getAbsolutePath() + "/" + filename, map);
+        }
+    }
+
+    private static void writeMapToFile(String filename, Map map) {
+        MapFileWriter mapFileWriter = new MapFileWriterImpl();
+        mapFileWriter.writeMapFile(map, filename);
     }
 
     private static MapConfiguration getConfiguration() {
@@ -85,6 +101,6 @@ public class Application {
         );
 
         List<MapElementConfiguration> elementsCfg = List.of(mountainsCfg, pitsCfg, mineralsCfg, watersCfg);
-        return new MapConfiguration(100, 0.5, elementsCfg);
+        return new MapConfiguration(50, 0.5, elementsCfg);
     }
 }
