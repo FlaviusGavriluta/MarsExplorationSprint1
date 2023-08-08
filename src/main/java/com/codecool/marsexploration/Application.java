@@ -20,8 +20,12 @@ public class Application {
         System.out.println("Mars Exploration Sprint 1");
         MapConfiguration mapConfig = getConfiguration();
 
-        MapElementBuilder mapElementFactory = null;
         MapElementsGenerator mapElementsGenerator = new MapElementsGeneratorImpl();
+
+        Iterable<MapElement> mapElements = mapElementsGenerator.createAll(mapConfig);
+        for (MapElement mapElement : mapElements) {
+            System.out.println(mapElement);
+        }
         CoordinateCalculator coordinateCalculator = new CoordinateCalculatorImpl();
 
         MapConfigurationValidator mapConfigValidator = new MapConfigurationValidatorImpl();

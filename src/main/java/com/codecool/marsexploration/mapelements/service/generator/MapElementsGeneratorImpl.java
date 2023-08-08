@@ -21,7 +21,11 @@ public class MapElementsGeneratorImpl implements MapElementsGenerator{
 
         for (MapElementConfiguration mapElementConfiguration : mapElementConfigurations) {
             for (ElementToSize elementToSize : mapElementConfiguration.getElementToSizes()) {
-                mapElements.add(mapElementBuilder.build(elementToSize.size(), mapElementConfiguration.symbol(), mapElementConfiguration.name(), mapElementConfiguration.dimensionGrowth(), mapElementConfiguration.preferredLocationSymbol()));
+                int elementCount = elementToSize.elementCount();
+                while (elementCount > 0) {
+                    mapElements.add(mapElementBuilder.build(elementToSize.size(), mapElementConfiguration.symbol(), mapElementConfiguration.name(), mapElementConfiguration.dimensionGrowth(), mapElementConfiguration.preferredLocationSymbol()));
+                    elementCount--;
+                }
             }
         }
         return mapElements;
