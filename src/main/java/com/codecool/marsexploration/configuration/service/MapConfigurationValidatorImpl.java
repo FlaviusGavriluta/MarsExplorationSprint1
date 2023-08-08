@@ -5,7 +5,8 @@ import com.codecool.marsexploration.configuration.model.*;
 public class MapConfigurationValidatorImpl implements MapConfigurationValidator {
     @Override
     public boolean validate(MapConfiguration mapConfig) {
-        // Calculează numărul total de elemente care trebuie să fie generate
+        // 1. Calculate the total number of elements that need to be generated.
+        // This includes taking into account the sizes of the elements and multiplying them by their count.
         int totalSizeElements = mapConfig.mapElementConfigurations().stream()
                 .mapToInt(config -> config.elementToSizes().stream()
                         .mapToInt(element -> element.elementCount() * element.size())
@@ -13,13 +14,15 @@ public class MapConfigurationValidatorImpl implements MapConfigurationValidator 
 
         System.out.printf("Total size of elements: %d\n", totalSizeElements);
 
-        // Verifică dacă numărul total de elemente nu depășește limita impusă de ElementToSpaceRatio
+        // 2. Check if the total number of elements does not exceed the limit imposed by ElementToSpaceRatio.
+        // This ensures that the elements do not take up too much space on the map.
         if (totalSizeElements > mapConfig.mapSize() * mapConfig.mapSize() * mapConfig.elementToSpaceRatio()) {
             System.out.println("Total size of elements exceeds the threshold!");
             return false;
         }
 
-        // Verifică dacă sunt respectate regulile legate de dimensionalitatea elementelor
+        // 3. Check if the rules related to the dimensionality of the elements are respected.
+        // In this case, "mineral" and "water" must be one-dimensional, and their dimensionality growth must be 0.
         for (MapElementConfiguration elementConfig : mapConfig.mapElementConfigurations()) {
             if ((elementConfig.name().equals("mineral") || elementConfig.name().equals("water")) && (!elementConfig.elementToSizes().stream()
                     .allMatch(size -> size.size() == 1) || elementConfig.dimensionGrowth() != 0)) {
