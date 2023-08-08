@@ -1,6 +1,8 @@
 package com.codecool.marsexploration.mapelements.service.placer;
 
 import com.codecool.marsexploration.calculators.model.Coordinate;
+import com.codecool.marsexploration.calculators.service.CoordinateCalculator;
+import com.codecool.marsexploration.calculators.service.CoordinateCalculatorImpl;
 import com.codecool.marsexploration.mapelements.model.MapElement;
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +13,7 @@ class MapElementPlacerImplTest {
 
     @Test
     void testCanPlaceElement() {
+        CoordinateCalculator coordinateCalculator = new CoordinateCalculatorImpl();
         // Initialize the map array with non-null values
         String[][] map = new String[5][5];
         for (String[] strings : map) {
@@ -28,12 +31,13 @@ class MapElementPlacerImplTest {
         Coordinate coordinate = new Coordinate(2, 2);
 
         // Test if the element can be placed on the map
-        MapElementPlacer mapElementPlacer = new MapElementPlacerImpl();
+        MapElementPlacer mapElementPlacer = new MapElementPlacerImpl(coordinateCalculator);
         assertTrue(mapElementPlacer.canPlaceElement(element, map, coordinate));
     }
 
     @Test
     void testCannotPlaceElement() {
+        CoordinateCalculator coordinateCalculator = new CoordinateCalculatorImpl();
         // Initialize the map array with non-null values and place an element
         String[][] map = new String[5][5];
         for (String[] strings : map) {
@@ -55,7 +59,7 @@ class MapElementPlacerImplTest {
         Coordinate coordinate = new Coordinate(2, 2);
 
         // Test if the element cannot be placed on the map due to overlapping with an existing element
-        MapElementPlacer mapElementPlacer = new MapElementPlacerImpl();
+        MapElementPlacer mapElementPlacer = new MapElementPlacerImpl(coordinateCalculator);
         assertFalse(mapElementPlacer.canPlaceElement(element, map, coordinate));
     }
 }

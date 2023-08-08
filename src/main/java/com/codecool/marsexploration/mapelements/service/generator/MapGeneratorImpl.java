@@ -22,7 +22,7 @@ public class MapGeneratorImpl implements MapGenerator {
     private final CoordinateCalculator coordinateCalculator;
 
     public MapGeneratorImpl(MapElementPlacer mapElementPlacer, MapElementsGenerator mapElementsGenerator, CoordinateCalculator coordinateCalculator) {
-        this.mapElementPlacer = new MapElementPlacerImpl();
+        this.mapElementPlacer = new MapElementPlacerImpl(coordinateCalculator);
         this.mapElementsGenerator = new MapElementsGeneratorImpl();
         this.coordinateCalculator = new CoordinateCalculatorImpl();
     }

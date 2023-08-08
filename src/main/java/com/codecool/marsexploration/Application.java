@@ -26,7 +26,7 @@ public class Application {
 
         MapConfigurationValidator mapConfigValidator = new MapConfigurationValidatorImpl();
         System.out.println("Map is valid: " + mapConfigValidator.validate(mapConfig));
-        MapElementPlacer mapElementPlacer = new MapElementPlacerImpl();
+        MapElementPlacer mapElementPlacer = new MapElementPlacerImpl(coordinateCalculator);
 
         MapGenerator mapGenerator = new MapGeneratorImpl(mapElementPlacer, mapElementsGenerator, coordinateCalculator);
         Map map = mapGenerator.generate(mapConfig);
