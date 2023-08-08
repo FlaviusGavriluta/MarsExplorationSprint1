@@ -1,11 +1,22 @@
 package com.codecool.marsexploration;
 
-import com.codecool.marsexploration.calculators.service.*;
-import com.codecool.marsexploration.configuration.model.*;
-import com.codecool.marsexploration.configuration.service.*;
-import com.codecool.marsexploration.mapelements.service.builder.*;
-import com.codecool.marsexploration.mapelements.service.generator.*;
-import com.codecool.marsexploration.mapelements.service.placer.*;
+import com.codecool.marsexploration.calculators.service.CoordinateCalculator;
+import com.codecool.marsexploration.calculators.service.CoordinateCalculatorImpl;
+import com.codecool.marsexploration.calculators.service.DimensionCalculator;
+import com.codecool.marsexploration.calculators.service.DimensionCalculatorImpl;
+import com.codecool.marsexploration.configuration.model.ElementToSize;
+import com.codecool.marsexploration.configuration.model.MapConfiguration;
+import com.codecool.marsexploration.configuration.model.MapElementConfiguration;
+import com.codecool.marsexploration.configuration.service.MapConfigurationValidator;
+import com.codecool.marsexploration.configuration.service.MapConfigurationValidatorImpl;
+import com.codecool.marsexploration.mapelements.service.builder.MapElementBuilder;
+import com.codecool.marsexploration.mapelements.service.builder.MapElementBuilderImpl;
+import com.codecool.marsexploration.mapelements.service.generator.MapElementsGenerator;
+import com.codecool.marsexploration.mapelements.service.generator.MapElementsGeneratorImpl;
+import com.codecool.marsexploration.mapelements.service.generator.MapGenerator;
+import com.codecool.marsexploration.mapelements.service.generator.MapGeneratorImpl;
+import com.codecool.marsexploration.mapelements.service.placer.MapElementPlacer;
+import com.codecool.marsexploration.mapelements.service.placer.MapElementPlacerImpl;
 
 import java.util.List;
 
