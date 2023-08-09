@@ -1,17 +1,32 @@
 package com.codecool.marsexploration.configuration.service;
 
+import com.codecool.marsexploration.calculators.service.DimensionCalculator;
+import com.codecool.marsexploration.calculators.service.DimensionCalculatorImpl;
 import com.codecool.marsexploration.configuration.model.MapConfiguration;
 import com.codecool.marsexploration.configuration.model.MapElementConfiguration;
 
 public class MapConfigurationValidatorImpl implements MapConfigurationValidator {
+    private DimensionCalculator dimensionCalculator;
+
+    public MapConfigurationValidatorImpl() {
+        this.dimensionCalculator = new DimensionCalculatorImpl();
+    }
+
     @Override
     public boolean validate(MapConfiguration mapConfig) {
         // 1. Calculate the total number of elements that need to be generated.
         // This includes taking into account the sizes of the elements and multiplying them by their count.
         int totalSizeElements = mapConfig.mapElementConfigurations().stream()
-                .mapToInt(config -> config.elementToSizes().stream()
-                        .mapToInt(element -> element.elementCount() * element.size())
-                        .sum()).sum();
+                .flatMap(elementConfig -> elementConfig.elementToSizes().stream()
+                        .map(elementToSize -> {
+                            int sideOfMapWithDimensionGrowth = dimensionCalculator.calculateDimension(
+                                    elementToSize.size(), elementConfig.dimensionGrowth()
+                            );
+                            int elementSize = sideOfMapWithDimensionGrowth * sideOfMapWithDimensionGrowth;
+                            return elementSize * elementToSize.elementCount();
+                        }))
+                .mapToInt(Integer::intValue)
+                .sum();
 
         // 2. Check if the total number of elements does not exceed the limit imposed by ElementToSpaceRatio.
         // This ensures that the elements do not take up too much space on the map.

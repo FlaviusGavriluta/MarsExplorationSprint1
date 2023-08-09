@@ -65,6 +65,7 @@ public class Application {
                 3,
                 ""
         );
+        System.out.println(mountainsCfg);
 
         // Pit configuration
         MapElementConfiguration pitsCfg = new MapElementConfiguration(
@@ -76,6 +77,7 @@ public class Application {
                 10,
                 ""
         );
+        System.out.println(pitsCfg);
 
         // Mineral configuration
         MapElementConfiguration mineralsCfg = new MapElementConfiguration(
@@ -86,6 +88,7 @@ public class Application {
                 0,
                 mountainSymbol
         );
+        System.out.println(mineralsCfg);
 
         // Water configuration
         MapElementConfiguration waterCfg = new MapElementConfiguration(
@@ -96,11 +99,13 @@ public class Application {
                 0,
                 pitSymbol
         );
+        System.out.println(waterCfg);
 
         // Map configuration
         List<MapElementConfiguration> elementsCfg = List.of(mountainsCfg, pitsCfg, mineralsCfg, waterCfg);
         System.out.printf("Map configuration: %s\n", elementsCfg);
-        MapConfiguration mapConfig = new MapConfiguration(17, 0.5, elementsCfg);
+        MapConfiguration mapConfig = new MapConfiguration(261, 0.5, elementsCfg);
+        System.out.println(mapConfig);
         MapConfigurationValidatorImpl validator = new MapConfigurationValidatorImpl();
         System.out.println("Validating map configuration..." + validator.validate(mapConfig));
         return mapConfig;

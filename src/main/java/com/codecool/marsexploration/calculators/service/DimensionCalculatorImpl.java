@@ -9,7 +9,10 @@ public class DimensionCalculatorImpl implements DimensionCalculator {
         }
         // Calculate the minimum dimension that can contain the given size
         int minimumDimension = (int) Math.ceil(Math.sqrt(size));
-        // Add the dimension growth to the minimum dimension
-        return minimumDimension + dimensionGrowth;
+
+        // if map size is 100, result a side of map is 10
+        int sideOfMap = minimumDimension + dimensionGrowth;
+
+        return sideOfMap;
     }
 }

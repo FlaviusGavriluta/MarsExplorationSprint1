@@ -35,7 +35,7 @@ class MapConfigurationValidatorImplTest {
     void shouldValidateConfigurationWithFiftyPercentElementToSpaceRatio() {
         MapElementConfiguration mountainsCfg = new MapElementConfiguration("#", "mountain", List.of(new ElementToSize(2, 20), new ElementToSize(1, 30)), 3, "");
         List<MapElementConfiguration> elementsCfg = List.of(mountainsCfg);
-        MapConfiguration validMapConfig = new MapConfiguration(242, 0.5, elementsCfg);
+        MapConfiguration validMapConfig = new MapConfiguration(420, 0.5, elementsCfg);
         assertTrue(validator.validate(validMapConfig));
     }
 
