@@ -4,9 +4,13 @@ import com.codecool.marsexploration.calculators.service.*;
 import com.codecool.marsexploration.configuration.model.*;
 import com.codecool.marsexploration.configuration.service.*;
 import com.codecool.marsexploration.mapelements.model.Map;
+import com.codecool.marsexploration.mapelements.model.MapElement;
+import com.codecool.marsexploration.mapelements.service.builder.MapElementBuilder;
+import com.codecool.marsexploration.mapelements.service.builder.MapElementBuilderImpl;
 import com.codecool.marsexploration.mapelements.service.generator.*;
 import com.codecool.marsexploration.output.service.MapFileWriter;
 import com.codecool.marsexploration.output.service.MapFileWriterImpl;
+
 
 import java.io.File;
 import java.util.List;
@@ -17,16 +21,11 @@ public class Application {
     public static void main(String[] args) {
         System.out.println("Mars Exploration Sprint 1");
         MapConfiguration mapConfig = getConfiguration();
-
         CoordinateCalculator coordinateCalculator = new CoordinateCalculatorImpl();
-
         MapConfigurationValidator mapConfigValidator = new MapConfigurationValidatorImpl();
         System.out.println("Map is valid: " + mapConfigValidator.validate(mapConfig));
-
         MapGenerator mapGenerator = new MapGeneratorImpl(coordinateCalculator);
-
         createAndWriteMaps(3, mapGenerator, mapConfig);
-
         System.out.println("Mars maps successfully generated.");
     }
 
@@ -38,7 +37,7 @@ public class Application {
 
         for (int i = 1; i <= count; i++) {
             Map map = mapGenerator.generate(mapConfig);
-            String filename = "map_" + i + ".map";
+            String filename = "map_" + i + ".txt";
             writeMapToFile(mapDir.getAbsolutePath() + "/" + filename, map);
         }
     }

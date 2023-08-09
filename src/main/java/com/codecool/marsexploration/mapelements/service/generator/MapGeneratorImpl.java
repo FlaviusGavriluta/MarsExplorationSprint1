@@ -25,7 +25,7 @@ public class MapGeneratorImpl implements MapGenerator {
 
     @Override
     public Map generate(MapConfiguration mapConfig) {
-        int mapSize = mapConfig.getMapSize();
+        int mapSize = mapConfig.mapSize();
         Iterable<MapElement> mapElements = mapElementsGenerator.createAll(mapConfig);
         String[][] map = new String[mapSize][mapSize];
 

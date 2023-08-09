@@ -16,28 +16,24 @@ public class MapElementPlacerImpl implements MapElementPlacer {
     @Override
     public boolean canPlaceElement(MapElement element, String[][] map, Coordinate coordinate) {
         int elementDimension = element.getDimension();
-        int mapDimension = map.length;
         String preferredLocation = element.getPreferredLocationSymbol();
         int x = coordinate.x();
         int y = coordinate.y();
-
         if (!preferredLocation.isEmpty()) {
-            Coordinate preferredCoordinate = coordinateCalculator.getRandomCoordinate(mapDimension);
-            while (!Objects.equals(map[preferredCoordinate.x()][preferredCoordinate.y()], preferredLocation)) {
-                preferredCoordinate = coordinateCalculator.getRandomCoordinate(mapDimension);
-            }
-            Iterable<Coordinate> adjacentCoordinates = coordinateCalculator.getAdjacentCoordinates(preferredCoordinate, mapDimension);
+            Iterable<Coordinate> adjacentCoordinates = coordinateCalculator.getAdjacentCoordinates(coordinate, 1);
+            boolean valid = false;
             for (Coordinate adjacentCoordinate : adjacentCoordinates) {
-                if (Objects.equals(map[adjacentCoordinate.getX()][adjacentCoordinate.getY()], " ")) {
-                    map[adjacentCoordinate.getX()][adjacentCoordinate.getY()] = element.toString();
+                if (map[adjacentCoordinate.x()][adjacentCoordinate.y()].equals(element.getPreferredLocationSymbol())) {
+                    valid = true;
                 }
             }
+            if (!valid) {
+                return false;
+            }
         }
-
         if (x + elementDimension > map.length || y + elementDimension > map[0].length) {
             return false;
         }
-
         if (elementDimension == 1) {
             return Objects.equals(map[x][y], " ");
         } else {
@@ -58,14 +54,13 @@ public class MapElementPlacerImpl implements MapElementPlacer {
         int x = coordinate.x();
         int y = coordinate.y();
         String[][] representation = element.getRepresentation();
-
         if (dimension == 1) {
             map[x][y] = representation[0][0];
         } else {
             for (int i = 0; i < dimension; i++) {
-                System.arraycopy(representation[i], 0, map[x + i], y , dimension);
+                System.arraycopy(representation[i], 0, map[x + i], y, dimension);
             }
         }
-
     }
+
 }

@@ -15,10 +15,10 @@ public class MapElementsGeneratorImpl implements MapElementsGenerator{
     @Override
     public Iterable<MapElement> createAll(MapConfiguration mapConfig) {
         List<MapElement> mapElements = new ArrayList<>();
-        List<MapElementConfiguration> mapElementConfigurations = mapConfig.getMapElementConfigurations();
+        List<MapElementConfiguration> mapElementConfigurations = mapConfig.mapElementConfigurations();
 
         for (MapElementConfiguration mapElementConfiguration : mapElementConfigurations) {
-            for (ElementToSize elementToSize : mapElementConfiguration.getElementToSizes()) {
+            for (ElementToSize elementToSize : mapElementConfiguration.elementToSizes()) {
                 int elementCount = elementToSize.elementCount();
                 while (elementCount > 0) {
                     mapElements.add(mapElementBuilder.build(elementToSize.size(), mapElementConfiguration.symbol(), mapElementConfiguration.name(), mapElementConfiguration.dimensionGrowth(), mapElementConfiguration.preferredLocationSymbol()));

@@ -29,8 +29,8 @@ public class MapElementBuilderImpl implements MapElementBuilder {
 
         for (int i = 0; i <= size; i++) {
             Coordinate randomCoordinate = coordinateCalculator.getRandomCoordinate(dimension);
-            int x = randomCoordinate.getX();
-            int y = randomCoordinate.getY();
+            int x = randomCoordinate.x();
+            int y = randomCoordinate.y();
 
             representation[x][y] = symbol;
         }

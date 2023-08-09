@@ -37,13 +37,13 @@ public class MapConfigurationValidatorImpl implements MapConfigurationValidator 
 
     private boolean validateMountainElement(MapElementConfiguration element) {
         return element.dimensionGrowth() == 3
-                && element.getElementToSizes().size() >= 2
+                && element.elementToSizes().size() >= 2
                 && element.preferredLocationSymbol().isEmpty();
     }
 
     private boolean validatePitElement(MapElementConfiguration element) {
         return element.dimensionGrowth() == 10
-                && element.getElementToSizes().size() >= 2
+                && element.elementToSizes().size() >= 2
                 && element.preferredLocationSymbol().isEmpty();
     }
 
