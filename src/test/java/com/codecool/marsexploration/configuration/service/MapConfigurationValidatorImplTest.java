@@ -35,7 +35,7 @@ class MapConfigurationValidatorImplTest {
     void shouldValidateConfigurationWithFiftyPercentElementToSpaceRatio() {
         MapElementConfiguration mountainsCfg = new MapElementConfiguration("#", "mountain", List.of(new ElementToSize(2, 20), new ElementToSize(1, 30)), 3, "");
         List<MapElementConfiguration> elementsCfg = List.of(mountainsCfg);
-        MapConfiguration validMapConfig = new MapConfiguration(12, 0.5, elementsCfg);
+        MapConfiguration validMapConfig = new MapConfiguration(242, 0.5, elementsCfg);
         assertTrue(validator.validate(validMapConfig));
     }
 
@@ -68,7 +68,7 @@ class MapConfigurationValidatorImplTest {
         List<ElementToSize> mineralToSizes = List.of(new ElementToSize(5, 1));
         MapElementConfiguration mineral = new MapElementConfiguration("%", "mineral", mineralToSizes, 0, "#");
         List<MapElementConfiguration> mapElementConfigurations = List.of(mineral);
-        return new MapConfiguration(10, 0.1, mapElementConfigurations);
+        return new MapConfiguration(50, 0.1, mapElementConfigurations);
     }
 
     private MapConfiguration createExceedingElementToSpaceRatioConfiguration() {

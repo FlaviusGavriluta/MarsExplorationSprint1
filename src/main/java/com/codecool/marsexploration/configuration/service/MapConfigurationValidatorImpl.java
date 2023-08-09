@@ -15,7 +15,7 @@ public class MapConfigurationValidatorImpl implements MapConfigurationValidator 
 
         // 2. Check if the total number of elements does not exceed the limit imposed by ElementToSpaceRatio.
         // This ensures that the elements do not take up too much space on the map.
-        if (totalSizeElements > mapConfig.mapSize() * mapConfig.mapSize() * mapConfig.elementToSpaceRatio()) {
+        if (totalSizeElements > mapConfig.mapSize() * mapConfig.elementToSpaceRatio()) {
             System.out.println("Total size of elements exceeds the threshold!");
             return false;
         }
