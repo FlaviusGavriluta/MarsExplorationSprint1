@@ -24,6 +24,9 @@ public class MapElement extends Map {
     public int getDimension() {
         return dimension;
     }
+    public String getPreferredLocationSymbol() {
+        return preferredLocationSymbol;
+    }
 
     public boolean isMultidimensional() {
         return dimension > 1;
@@ -34,4 +37,3 @@ public class MapElement extends Map {
         return super.toString();
     }
 }
-
