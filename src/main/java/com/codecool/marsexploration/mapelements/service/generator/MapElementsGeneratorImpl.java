@@ -26,6 +26,7 @@ public class MapElementsGeneratorImpl implements MapElementsGenerator {
             int dimensionGrowth = elementConfig.dimensionGrowth();
             String preferredLocationSymbol = elementConfig.preferredLocationSymbol();
 
+            System.out.println("Element: " + name + " is unidimensional: " + isUnidimensional(elementConfig));
             for (ElementToSize elementToSize : elementConfig.elementToSizes()) {
                 int size = elementToSize.size();
                 int quantity = elementToSize.elementCount();
@@ -41,14 +42,13 @@ public class MapElementsGeneratorImpl implements MapElementsGenerator {
     }
 
     private boolean isUnidimensional(MapElementConfiguration elementConfiguration) {
-        for (ElementToSize elementToSize : elementConfiguration.elementToSizes()) {
-            int size = elementToSize.size();
-            MapElement element = builder.build(size, elementConfiguration.symbol(), elementConfiguration.name(), elementConfiguration.dimensionGrowth(), elementConfiguration.preferredLocationSymbol());
-            if (element.isMultidimensional()) {
-                return false;
-            }
-        }
-        return true;
+        return elementConfiguration.elementToSizes().stream()
+                .map(elementToSize -> builder.build(
+                        elementToSize.size(),
+                        elementConfiguration.symbol(),
+                        elementConfiguration.name(),
+                        elementConfiguration.dimensionGrowth(),
+                        elementConfiguration.preferredLocationSymbol()))
+                .noneMatch(MapElement::isMultidimensional);
     }
 }
-
