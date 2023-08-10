@@ -17,27 +17,55 @@ public class MapElementsGeneratorImpl implements MapElementsGenerator {
         this.builder = builder;
     }
 
+
     @Override
     public Iterable<MapElement> createAll(MapConfiguration mapConfig) {
         List<MapElement> elements = new ArrayList<>();
         for (MapElementConfiguration elementConfig : mapConfig.mapElementConfigurations()) {
-            String symbol = elementConfig.symbol();
-            String name = elementConfig.name();
-            int dimensionGrowth = elementConfig.dimensionGrowth();
-            String preferredLocationSymbol = elementConfig.preferredLocationSymbol();
+            if (isUnidimensional(elementConfig)) {
+                elements.addAll(generateUnidimensionalElements(elementConfig));
+            } else {
+                elements.addAll(generateMultidimensionalElements(elementConfig));
+            }
+        }
+        return elements;
+    }
 
-            System.out.println("Element: " + name + " is unidimensional: " + isUnidimensional(elementConfig));
-            for (ElementToSize elementToSize : elementConfig.elementToSizes()) {
-                int size = elementToSize.size();
+    private List<MapElement> generateUnidimensionalElements(MapElementConfiguration mapElementConfiguration) {
+        List<MapElement> elements = new ArrayList<>();
+        for (ElementToSize elementToSize : mapElementConfiguration.elementToSizes()) {
+            if (elementToSize.size() == 1) {
                 int quantity = elementToSize.elementCount();
-
                 for (int i = 0; i < quantity; i++) {
-                    MapElement element = builder.build(size, symbol, name, dimensionGrowth, preferredLocationSymbol);
+                    MapElement element = builder.build(
+                            1,
+                            mapElementConfiguration.symbol(),
+                            mapElementConfiguration.name(),
+                            mapElementConfiguration.dimensionGrowth(),
+                            mapElementConfiguration.preferredLocationSymbol());
                     elements.add(element);
                 }
             }
         }
+        return elements;
+    }
 
+    private List<MapElement> generateMultidimensionalElements(MapElementConfiguration mapElementConfiguration) {
+        List<MapElement> elements = new ArrayList<>();
+        for (ElementToSize elementToSize : mapElementConfiguration.elementToSizes()) {
+            if (elementToSize.size() > 1) {
+                int quantity = elementToSize.elementCount();
+                for (int i = 0; i < quantity; i++) {
+                    MapElement element = builder.build(
+                            elementToSize.size(),
+                            mapElementConfiguration.symbol(),
+                            mapElementConfiguration.name(),
+                            mapElementConfiguration.dimensionGrowth(),
+                            mapElementConfiguration.preferredLocationSymbol());
+                    elements.add(element);
+                }
+            }
+        }
         return elements;
     }
 

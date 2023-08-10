@@ -34,6 +34,7 @@ public class Application {
         MapElementBuilder mapElementBuilder = new MapElementBuilderImpl(dimensionCalculator);
         MapElementsGenerator mapElementsGenerator = new MapElementsGeneratorImpl(mapElementBuilder);
 
+        System.out.println(mapElementsGenerator.createAll(mapConfig));
         MapConfigurationValidator mapConfigValidator = new MapConfigurationValidatorImpl();
         MapElementPlacer mapElementPlacer = new MapElementPlacerImpl();
 
