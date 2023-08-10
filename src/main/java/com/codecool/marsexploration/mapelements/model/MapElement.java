@@ -24,6 +24,7 @@ public class MapElement extends Map {
     public int getDimension() {
         return dimension;
     }
+
     public String getPreferredLocationSymbol() {
         return preferredLocationSymbol;
     }

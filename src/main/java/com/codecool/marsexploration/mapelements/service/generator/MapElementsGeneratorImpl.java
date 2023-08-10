@@ -20,7 +20,6 @@ public class MapElementsGeneratorImpl implements MapElementsGenerator {
     @Override
     public Iterable<MapElement> createAll(MapConfiguration mapConfig) {
         List<MapElement> elements = new ArrayList<>();
-
         for (MapElementConfiguration elementConfig : mapConfig.mapElementConfigurations()) {
             String symbol = elementConfig.symbol();
             String name = elementConfig.name();
@@ -41,4 +40,15 @@ public class MapElementsGeneratorImpl implements MapElementsGenerator {
         return elements;
     }
 
+    private boolean isUnidimensional(MapElementConfiguration elementConfiguration) {
+        for (ElementToSize elementToSize : elementConfiguration.elementToSizes()) {
+            int size = elementToSize.size();
+            MapElement element = builder.build(size, elementConfiguration.symbol(), elementConfiguration.name(), elementConfiguration.dimensionGrowth(), elementConfiguration.preferredLocationSymbol());
+            if (element.isMultidimensional()) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
+
