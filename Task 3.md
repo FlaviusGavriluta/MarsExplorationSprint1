@@ -51,15 +51,22 @@ corespunzător și că harta generată este în conformitate cu cerințele.
 **Ce înveți:**
 - Folosirea testelor de integrare pentru a verifica funcționarea corectă a mai multor componente împreună.
 
-**Detalii:** În această etapă, vei crea teste unitare care să acopere întreg fluxul de generare a hărții, de la configurare până la generarea efectivă și plasarea elementelor pe hartă.
+**Detalii:** În această etapă, vei crea teste unitare care să acopere întreg fluxul de generare a hărții,
+de la configurare până la generarea efectivă și plasarea elementelor pe hartă.
 
 ### Subtask 6: Finalizarea și revizuirea codului
-**Cerință:** Finalizarea implementării și revizuirea generală a codului pentru a ne asigura că toate funcționalitățile sunt implementate corect și că respectă cerințele inițiale.
+**Cerință:** Finalizarea implementării și revizuirea generală a codului pentru a ne asigura că toate
+funcționalitățile sunt implementate corect și că respectă cerințele inițiale.
 
 **Ce înveți:**
 - Importanța revizuirii și testării constante a codului pentru a identifica și corecta erori sau posibile îmbunătățiri.
 
-**Detalii:** În această etapă, vei face ultimele ajustări la cod și vei verifica dacă toate funcționalitățile sunt implementate corect și că harta generată corespunde cerințelor.
+**Detalii:** În această etapă, vei face ultimele ajustări la cod și vei verifica dacă toate funcționalitățile
+sunt implementate corect și că harta generată corespunde cerințelor.
 
 #### Observație
-Pe măsură ce abordăm fiecare subtask, vom discuta și despre principiile și conceptele menționate în cerință, cum ar fi principiile de proiectare (Open-Closed, Single Responsibility, Interface Segregation) și tehnici precum Dependency Injection. Voi oferi explicații detaliate și vom putea discuta orice întrebări ai. Vom începe prin a implementa primul subtask: MapElementBuilder și teste unitare pentru acesta. Dacă ești de acord, putem continua cu detalii despre cum să abordăm acest subtask.
+Pe măsură ce abordăm fiecare subtask, vom discuta și despre principiile și conceptele menționate în cerință,
+cum ar fi principiile de proiectare (Open-Closed, Single Responsibility, Interface Segregation) și tehnici precum
+Dependency Injection. Voi oferi explicații detaliate și vom putea discuta orice întrebări ai. Vom începe prin
+a implementa primul subtask: MapElementBuilder și teste unitare pentru acesta. Dacă ești de acord, putem continua
+cu detalii despre cum să abordăm acest subtask.
