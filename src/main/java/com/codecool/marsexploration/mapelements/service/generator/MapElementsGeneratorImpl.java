@@ -8,65 +8,49 @@ import com.codecool.marsexploration.mapelements.service.builder.MapElementBuilde
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class MapElementsGeneratorImpl implements MapElementsGenerator {
-
     private final MapElementBuilder builder;
 
     public MapElementsGeneratorImpl(MapElementBuilder builder) {
         this.builder = builder;
     }
 
-
     @Override
     public Iterable<MapElement> createAll(MapConfiguration mapConfig) {
-        List<MapElement> elements = new ArrayList<>();
-        for (MapElementConfiguration elementConfig : mapConfig.mapElementConfigurations()) {
-            if (isUnidimensional(elementConfig)) {
-                elements.addAll(generateUnidimensionalElements(elementConfig));
-            } else {
-                elements.addAll(generateMultidimensionalElements(elementConfig));
-            }
-        }
-        return elements;
+        return mapConfig.mapElementConfigurations().stream()
+                .flatMap(elementConfig -> isUnidimensional(elementConfig)
+                        ? generateUnidimensionalElements(elementConfig).stream()
+                        : generateMultidimensionalElements(elementConfig).stream())
+                .collect(Collectors.toList());
     }
 
     private List<MapElement> generateUnidimensionalElements(MapElementConfiguration mapElementConfiguration) {
-        List<MapElement> elements = new ArrayList<>();
-        for (ElementToSize elementToSize : mapElementConfiguration.elementToSizes()) {
-            if (elementToSize.size() == 1) {
-                int quantity = elementToSize.elementCount();
-                for (int i = 0; i < quantity; i++) {
-                    MapElement element = builder.build(
-                            1,
-                            mapElementConfiguration.symbol(),
-                            mapElementConfiguration.name(),
-                            mapElementConfiguration.dimensionGrowth(),
-                            mapElementConfiguration.preferredLocationSymbol());
-                    elements.add(element);
-                }
-            }
-        }
-        return elements;
+        return mapElementConfiguration.elementToSizes().stream()
+                .filter(elementToSize -> elementToSize.size() == 1)
+                .flatMap(elementToSize -> IntStream.range(0, elementToSize.elementCount())
+                        .mapToObj(i -> builder.build(
+                                1,
+                                mapElementConfiguration.symbol(),
+                                mapElementConfiguration.name(),
+                                mapElementConfiguration.dimensionGrowth(),
+                                mapElementConfiguration.preferredLocationSymbol())))
+                .collect(Collectors.toList());
     }
 
     private List<MapElement> generateMultidimensionalElements(MapElementConfiguration mapElementConfiguration) {
-        List<MapElement> elements = new ArrayList<>();
-        for (ElementToSize elementToSize : mapElementConfiguration.elementToSizes()) {
-            if (elementToSize.size() > 1) {
-                int quantity = elementToSize.elementCount();
-                for (int i = 0; i < quantity; i++) {
-                    MapElement element = builder.build(
-                            elementToSize.size(),
-                            mapElementConfiguration.symbol(),
-                            mapElementConfiguration.name(),
-                            mapElementConfiguration.dimensionGrowth(),
-                            mapElementConfiguration.preferredLocationSymbol());
-                    elements.add(element);
-                }
-            }
-        }
-        return elements;
+        return mapElementConfiguration.elementToSizes().stream()
+                .filter(elementToSize -> elementToSize.size() > 1)
+                .flatMap(elementToSize -> IntStream.range(0, elementToSize.elementCount())
+                        .mapToObj(i -> builder.build(
+                                elementToSize.size(),
+                                mapElementConfiguration.symbol(),
+                                mapElementConfiguration.name(),
+                                mapElementConfiguration.dimensionGrowth(),
+                                mapElementConfiguration.preferredLocationSymbol())))
+                .collect(Collectors.toList());
     }
 
     private boolean isUnidimensional(MapElementConfiguration elementConfiguration) {
