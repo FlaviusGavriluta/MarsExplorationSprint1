@@ -8,6 +8,7 @@ import com.codecool.marsexploration.mapelements.service.builder.MapElementBuilde
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -27,7 +28,7 @@ public class MapElementsGeneratorImpl implements MapElementsGenerator {
                 .collect(Collectors.toList());
     }
 
-    private List<MapElement> generateUnidimensionalElements(MapElementConfiguration mapElementConfiguration) {
+    public List<MapElement> generateUnidimensionalElements(MapElementConfiguration mapElementConfiguration) {
         return mapElementConfiguration.elementToSizes().stream()
                 .filter(elementToSize -> elementToSize.size() == 1)
                 .flatMap(elementToSize -> IntStream.range(0, elementToSize.elementCount())
@@ -40,7 +41,7 @@ public class MapElementsGeneratorImpl implements MapElementsGenerator {
                 .collect(Collectors.toList());
     }
 
-    private List<MapElement> generateMultidimensionalElements(MapElementConfiguration mapElementConfiguration) {
+    public List<MapElement> generateMultidimensionalElements(MapElementConfiguration mapElementConfiguration) {
         return mapElementConfiguration.elementToSizes().stream()
                 .filter(elementToSize -> elementToSize.size() > 1)
                 .flatMap(elementToSize -> IntStream.range(0, elementToSize.elementCount())
@@ -53,14 +54,10 @@ public class MapElementsGeneratorImpl implements MapElementsGenerator {
                 .collect(Collectors.toList());
     }
 
-    private boolean isUnidimensional(MapElementConfiguration elementConfiguration) {
-        return elementConfiguration.elementToSizes().stream()
-                .map(elementToSize -> builder.build(
-                        elementToSize.size(),
-                        elementConfiguration.symbol(),
-                        elementConfiguration.name(),
-                        elementConfiguration.dimensionGrowth(),
-                        elementConfiguration.preferredLocationSymbol()))
-                .noneMatch(MapElement::isMultidimensional);
+    public boolean isUnidimensional(MapElementConfiguration elementConfiguration) {
+        if (elementConfiguration.dimensionGrowth() == 0)
+            return elementConfiguration.elementToSizes().stream()
+                    .allMatch(elementToSize -> elementToSize.size() == 1);
+        else return false;
     }
 }
