@@ -55,7 +55,8 @@ public class MapElementsGeneratorImpl implements MapElementsGenerator {
     }
 
     public boolean isUnidimensional(MapElementConfiguration elementConfiguration) {
-        return elementConfiguration.dimensionGrowth() == 0 && elementConfiguration.elementToSizes().stream()
+        return elementConfiguration.dimensionGrowth() == 0 &&
+                elementConfiguration.elementToSizes().stream()
                 .allMatch(elementToSize -> elementToSize.size() == 1);
     }
 }
